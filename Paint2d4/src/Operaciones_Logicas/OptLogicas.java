@@ -14,6 +14,7 @@ import javafx.scene.transform.Translate;
  */
 public class OptLogicas {
      public ArrayList<String> palabras = new ArrayList<>();
+     public ArrayList<String> list = new ArrayList<>();
      public String texto ="";
      
      public void separarTexto(String text){
@@ -69,11 +70,28 @@ public class OptLogicas {
     
     public void agregarPuntosControl(){
         palabras.clear();
-        String text = "";
-         for (int i = 0; i < texto.length(); i++) {
-            if (texto.charAt(i)==' ') {
+        for (int i = 0; i < texto.length(); i++) {
+            if(i==0){
+                list.add("·");
                 
+                list.add(String.valueOf(texto.charAt(i)));
+            }else{
+                String letraAgregar = String.valueOf(texto.charAt(i));
+                list.add(letraAgregar);
+                
+                if (texto.charAt(i)==' ') {
+                list.add(".");
+                list.add("·");
+                }
             }
-        }     
+        }
+        list.add(".");
+        imprimirListaPuntosDeControl();
+    }
+    
+    public void imprimirListaPuntosDeControl(){
+        for(int i = 0; i < list.size(); i++){
+            System.out.print(list.get(i));
+        }
     }
 }

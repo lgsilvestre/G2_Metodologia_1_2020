@@ -114,6 +114,9 @@ public class VistaController implements Initializable {
     }
     @FXML
     public void trasladarTexto(MouseEvent event){
+        menudarformato.setVisible(false);
+        menurotar.setVisible(false);
+        menuprincipal.setVisible(true);
         textoIngresado.setLayoutX(event.getSceneX());
         textoIngresado.setLayoutY(event.getSceneY());
     }
@@ -122,7 +125,7 @@ public class VistaController implements Initializable {
         menuprincipal.setVisible(true);
         menudarformato.setVisible(false);
         menurotar.setVisible(false);
-        
+        /*
         //Dibujando el primer punto
         Circle circle = new Circle();
         
@@ -132,7 +135,8 @@ public class VistaController implements Initializable {
         
         //Configurando el radio del circulo con el color de relleno
         circle.setRadius(10.0f);
-        circle.setFill(Color.RED);
+        circle.setFill(Color.RED);*/
+        operaciones.agregarPuntosControl();
         
         
     }
