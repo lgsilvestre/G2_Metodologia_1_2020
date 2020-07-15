@@ -125,19 +125,9 @@ public class VistaController implements Initializable {
         menuprincipal.setVisible(true);
         menudarformato.setVisible(false);
         menurotar.setVisible(false);
-        /*
-        //Dibujando el primer punto
-        Circle circle = new Circle();
-        
-        //Configurando la posición del circulo
-        circle.setCenterX(100.0f);
-        circle.setCenterY(100.0f);
-        
-        //Configurando el radio del circulo con el color de relleno
-        circle.setRadius(10.0f);
-        circle.setFill(Color.RED);*/
+
         operaciones.agregarPuntosControl();
-        
+        textoIngresado.setText(operaciones.list.toString());
         
     }
     @Override
