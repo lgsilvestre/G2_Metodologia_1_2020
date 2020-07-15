@@ -117,8 +117,10 @@ public class VistaController implements Initializable {
         menudarformato.setVisible(false);
         menurotar.setVisible(false);
         menuprincipal.setVisible(true);
-        textoIngresado.setLayoutX(event.getSceneX());
-        textoIngresado.setLayoutY(event.getSceneY());
+//        textoIngresado.setLayoutX(event.getSceneX());
+//        textoIngresado.setLayoutY(event.getSceneY());
+        textoIngresado.setTranslateX(event.getX());
+        textoIngresado.setTranslateY(event.getY());
     }
     @FXML
     public void visualizarPuntos(ActionEvent event){
