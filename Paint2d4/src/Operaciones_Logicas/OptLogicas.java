@@ -6,6 +6,7 @@
 package Operaciones_Logicas;
 
 import java.util.ArrayList;
+import javafx.scene.transform.Translate;
 
 /**
  *
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 public class OptLogicas {
      public ArrayList<String> palabras = new ArrayList<>();
      public String texto ="";
+     
      public void separarTexto(String text){
         palabras.clear();
         texto = text;
@@ -38,7 +40,16 @@ public class OptLogicas {
             System.out.println(palabras.get(i));
         }
     }
-     public String rotar(String valor,int rotacion){
+    
+    public void invertirTexto(String text){
+        String invertida ="";
+        for (int i = text.length()-1; i >= 0; i--) {
+            invertida+=text.charAt(i);
+        }
+        separarTexto(invertida);
+    }
+    
+    public String rotar(String valor,int rotacion){
         int val =Integer.parseInt(valor);
         val+=rotacion;
          if (val<0) {
@@ -47,11 +58,22 @@ public class OptLogicas {
         valor =Integer.toString(val);
         return valor;
     }
-    public void invertirTexto(String text){
-        String invertida ="";
-        for (int i = text.length()-1; i >= 0; i--) {
-            invertida+=text.charAt(i);
-        }
-        separarTexto(invertida);
+    
+    public void trasladarTexto(String text){
+        Translate trasladar = new Translate();
+        trasladar.setX(100);
+        trasladar.setY(100);
+        palabras.clear();
+        
+    }
+    
+    public void agregarPuntosControl(){
+        palabras.clear();
+        String text = "";
+         for (int i = 0; i < texto.length(); i++) {
+            if (texto.charAt(i)==' ') {
+                
+            }
+        }     
     }
 }

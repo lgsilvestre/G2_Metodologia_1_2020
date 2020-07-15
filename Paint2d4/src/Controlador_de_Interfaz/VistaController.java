@@ -21,10 +21,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 
 /**
@@ -108,6 +110,30 @@ public class VistaController implements Initializable {
     @FXML
     public void mostrarTexto() {
         textoIngresado.setText(operaciones.texto);        
+        
+    }
+    @FXML
+    public void trasladarTexto(MouseEvent event){
+        textoIngresado.setLayoutX(event.getSceneX());
+        textoIngresado.setLayoutY(event.getSceneY());
+    }
+    @FXML
+    public void visualizarPuntos(ActionEvent event){
+        menuprincipal.setVisible(true);
+        menudarformato.setVisible(false);
+        menurotar.setVisible(false);
+        
+        //Dibujando el primer punto
+        Circle circle = new Circle();
+        
+        //Configurando la posición del circulo
+        circle.setCenterX(100.0f);
+        circle.setCenterY(100.0f);
+        
+        //Configurando el radio del circulo con el color de relleno
+        circle.setRadius(10.0f);
+        circle.setFill(Color.RED);
+        
         
     }
     @Override
