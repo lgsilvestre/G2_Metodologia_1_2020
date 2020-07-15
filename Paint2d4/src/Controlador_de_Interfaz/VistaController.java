@@ -19,6 +19,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -35,7 +36,6 @@ import javafx.scene.text.Font;
  */
 public class VistaController implements Initializable {
     
-    @FXML
     public Button aceptar;    
     @FXML
     public Pane menurotar;    
@@ -49,7 +49,6 @@ public class VistaController implements Initializable {
     public Button mrotar;  
     @FXML
     public Button rotarizquierda;  
-    @FXML
     public Button rotarderecha;  
     @FXML
     public TextField texto;       
@@ -59,9 +58,13 @@ public class VistaController implements Initializable {
     public TextField letraradar;       
     OptLogicas operaciones =new OptLogicas() ;
     Imagen imagenes = new Imagen();
-    
+    boolean mover = false;
     @FXML    
     public ImageView radar= new ImageView(imagenes.getRadar());
+    @FXML
+    private ScrollPane sinmenu;
+    @FXML
+    private Pane canvasPane;
              
     
         
@@ -78,12 +81,10 @@ public class VistaController implements Initializable {
         letraradar.setText(operaciones.rotar(letraradar.getText(), -30));
         
     }    
-    @FXML
     public void rotarDerecha(ActionEvent event){
         textoIngresado.setRotate(textoIngresado.getRotate()-30);
         letraradar.setText(operaciones.rotar(letraradar.getText(), 30));
     }    
-    @FXML
     public void menuDarFormato(ActionEvent event){
         menuprincipal.setVisible(false);
         menudarformato.setVisible(true);
@@ -107,20 +108,17 @@ public class VistaController implements Initializable {
         operaciones.imprimir();
         mostrarTexto();
     }
-    @FXML
     public void mostrarTexto() {
         textoIngresado.setText(operaciones.texto);        
         
     }
     @FXML
     public void trasladarTexto(MouseEvent event){
-        menudarformato.setVisible(false);
-        menurotar.setVisible(false);
-        menuprincipal.setVisible(true);
-//        textoIngresado.setLayoutX(event.getSceneX());
-//        textoIngresado.setLayoutY(event.getSceneY());
-        textoIngresado.setTranslateX(event.getX());
-        textoIngresado.setTranslateY(event.getY());
+        
+        if(mover){
+            textoIngresado.setLayoutX(event.getX());
+            textoIngresado.setLayoutY(event.getY());
+        }
     }
     @FXML
     public void visualizarPuntos(ActionEvent event){
@@ -136,5 +134,15 @@ public class VistaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO        
     }    
+
+    @FXML
+    private void activarTrasladar(MouseEvent event) {
+        mover = true;
+    }
+
+    @FXML
+    private void desactivarTrasladar(MouseEvent event) {
+        mover = false;
+    }
     
 }
