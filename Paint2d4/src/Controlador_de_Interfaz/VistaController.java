@@ -7,28 +7,19 @@ package Controlador_de_Interfaz;
 
 import Operaciones_Logicas.OptLogicas;
 import Recursos.Imagen;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
 /**
  *
@@ -36,7 +27,7 @@ import javafx.scene.text.Font;
  */
 public class VistaController implements Initializable {
     
-    public Button aceptar;    
+     public Button aceptar;    
     @FXML
     public Pane menurotar;    
     @FXML
@@ -52,38 +43,61 @@ public class VistaController implements Initializable {
     public Button rotarderecha;  
     @FXML
     public TextField texto;       
-    @FXML
-    public TextField textoIngresado;       
+    
+       
     @FXML
     public TextField letraradar;       
     OptLogicas operaciones =new OptLogicas() ;
     Imagen imagenes = new Imagen();
-    boolean mover = false;
+    
     @FXML    
     public ImageView radar= new ImageView(imagenes.getRadar());
     @FXML
     private ScrollPane sinmenu;
+             
     @FXML
     private Pane canvasPane;
-             
+    boolean mover =false;
+    boolean puntocontrol=false;
+    String textoaux; 
+    @FXML
+    private Button rotarD;
     
-        
+    private TextFlow textoIngresado;
+    @FXML
+    private Button trasladar;
+    @FXML
+    private Button visualPunto;
+  
     @FXML
     public void menuRotar(ActionEvent event){
-        menuprincipal.setVisible(false);
-        menudarformato.setVisible(false);
-        menurotar.setVisible(true);
+       
+            menuprincipal.setVisible(false);
+            menudarformato.setVisible(false);
+            menurotar.setVisible(true);
+       
+        
     }    
     @FXML
     public void rotarIzquierda(ActionEvent event){
         
         textoIngresado.setRotate(textoIngresado.getRotate()+30);
-        letraradar.setText(operaciones.rotar(letraradar.getText(), -30));
         
-    }    
+        letraradar.setText(operaciones.rotar(letraradar.getText(), +30));
+        
+         
+        
+        
+    } 
+    @FXML
     public void rotarDerecha(ActionEvent event){
+        
         textoIngresado.setRotate(textoIngresado.getRotate()-30);
-        letraradar.setText(operaciones.rotar(letraradar.getText(), 30));
+       
+        
+        letraradar.setText(operaciones.rotar(letraradar.getText(),-30));
+        
+       
     }    
     public void menuDarFormato(ActionEvent event){
         menuprincipal.setVisible(false);
@@ -92,57 +106,101 @@ public class VistaController implements Initializable {
     }            
 
     @FXML
-    public void getTexto(ActionEvent event) {
-        String text = texto.getText();        
-        operaciones.separarTexto(text);
-        operaciones.imprimir();
-        mostrarTexto();
+    public void getTexto(ActionEvent event) { 
+          Text texto1 = new Text(texto.getText());
+ 
+        textoIngresado.getChildren().add(texto1);   
     }
     
     @FXML
     public void invertir(ActionEvent event){
         menuprincipal.setVisible(true);
-        menudarformato.setVisible(false);
-        menurotar.setVisible(false);
-        operaciones.invertirTexto(operaciones.texto);
+       
+//        operaciones.invertirTexto(operaciones.texto);
         operaciones.imprimir();
         mostrarTexto();
     }
     public void mostrarTexto() {
-        textoIngresado.setText(operaciones.texto);        
+        
+        Text texto = new Text(operaciones.texto);
+ 
+        textoIngresado.getChildren().add(texto);       
+        
         
     }
+    
     @FXML
     public void trasladarTexto(MouseEvent event){
         
-        if(mover){
+        if (mover) {
+            
             textoIngresado.setLayoutX(event.getX());
             textoIngresado.setLayoutY(event.getY());
+            
         }
-    }
+        
+     
+          
+        
+   }
     @FXML
     public void visualizarPuntos(ActionEvent event){
         menuprincipal.setVisible(true);
-        menudarformato.setVisible(false);
-        menurotar.setVisible(false);
-
-        operaciones.agregarPuntosControl();
-        textoIngresado.setText(operaciones.list.toString());
+        
+        double X=0,Y=0,rota=0;
+        Text aux =new Text(texto.getText());
+        X= textoIngresado.getLayoutX();
+        Y= textoIngresado.getLayoutY();
+        rota= textoIngresado.getRotate();
+        visualPunto.setStyle("-fx-background-color: #08b2c9;");
+        if (puntocontrol==false) {
+            
+            textoIngresado=operaciones.separarTexto(texto.getText(),textoIngresado);
+            canvasPane.getChildren().clear();
+            canvasPane.getChildren().add(textoIngresado);
+            
+            
+            
+            puntocontrol=true;
+        }else{
+            visualPunto.setStyle("-fx-background-color: rgb(0,68,114);");
+            textoIngresado.getChildren().clear();
+            textoIngresado.getChildren().add(aux);
+            textoIngresado.setLayoutX(X);
+            textoIngresado.setLayoutY(Y);
+            textoIngresado.setRotate(rota);
+            canvasPane.getChildren().clear();
+            canvasPane.getChildren().add(textoIngresado);
+            puntocontrol=false;
+        
+            
+        }
+//        textoIngresado.setText(operaciones.list.toString());
         
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO        
-    }    
+        // TODO    
+        textoIngresado = new TextFlow();
+        canvasPane.getChildren().add(textoIngresado);
+    }      
 
-    @FXML
-    private void activarTrasladar(MouseEvent event) {
-        mover = true;
+    private void desactivarTrasladar(MouseEvent event) {
+        mover=false;
+        trasladar.setStyle("-fx-background-color: rgb(0,68,114);");
+         System.out.println(textoIngresado.getLayoutX()+" "+textoIngresado.getLayoutY());
+        
     }
 
     @FXML
-    private void desactivarTrasladar(MouseEvent event) {
-        mover = false;
+    private void activarTrasladar(MouseEvent event) 
+    {
+        mover=true;
+        trasladar.setStyle("-fx-background-color: #08b2c9;");
+        textoIngresado.setOnMousePressed((event2) -> {
+             mover=false;
+             trasladar.setStyle("-fx-background-color: rgb(0,68,114);");
+        });
     }
     
 }

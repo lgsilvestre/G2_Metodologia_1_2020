@@ -37,7 +37,7 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Button>
-            <Button alignment="CENTER" layoutY="145.0" mnemonicParsing="false" onMouseClicked="#activarTrasladar" prefHeight="31.0" prefWidth="249.0" style="-fx-background-color: rgb(0,68,114);" text="Trasladar" textFill="WHITE">
+            <Button fx:id="trasladar" alignment="CENTER" layoutY="145.0" mnemonicParsing="false" onMouseClicked="#activarTrasladar" prefHeight="31.0" prefWidth="249.0" style="-fx-background-color: rgb(0,68,114);" text="Trasladar" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -52,7 +52,7 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Button>
-            <Button alignment="CENTER" layoutY="194.0" mnemonicParsing="false" onAction="#visualizarPuntos" prefHeight="31.0" prefWidth="249.0" style="-fx-background-color: rgb(0,68,114);" text="Visualizar punto de control" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+            <Button fx:id="visualPunto" alignment="CENTER" layoutY="194.0" mnemonicParsing="false" onAction="#visualizarPuntos" prefHeight="31.0" prefWidth="249.0" style="-fx-background-color: rgb(0,68,114);" text="Visualizar punto de control" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
@@ -91,7 +91,7 @@
                </font>
             </TextField>
             <Button fx:id="rotarizquierda" layoutX="167.0" layoutY="95.0" mnemonicParsing="false" onAction="#rotarIzquierda" prefHeight="31.0" prefWidth="23.0" style="-fx-background-color: transparent;" />
-            <Button layoutX="37.0" layoutY="95.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="23.0" style="-fx-background-color: transparent;" />
+            <Button fx:id="rotarD" layoutX="37.0" layoutY="95.0" mnemonicParsing="false" onAction="#rotarDerecha" prefHeight="31.0" prefWidth="23.0" style="-fx-background-color: transparent;" />
          </children>
       </Pane>
       <Pane fx:id="menuprincipal" layoutY="406.0" prefHeight="170.0" prefWidth="249.0" style="-fx-background-color: rgb(1,110,179);" visible="false">
@@ -108,14 +108,6 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="248.0" style="-fx-background-color: rgb(1,110,179);" />
         </content>
       </ScrollPane>
-      <Pane fx:id="canvasPane" layoutX="249.0" layoutY="154.0" onMouseMoved="#trasladarTexto" prefHeight="567.0" prefWidth="1033.0">
-         <children>
-            <TextField fx:id="textoIngresado" editable="false" layoutX="87.0" layoutY="53.0" onMousePressed="#desactivarTrasladar" style="-fx-background-color: transparent;">
-               <font>
-                  <Font size="39.0" />
-               </font>
-            </TextField>
-         </children>
-      </Pane>
+      <Pane fx:id="canvasPane" layoutX="249.0" layoutY="154.0" onMouseMoved="#trasladarTexto" prefHeight="567.0" prefWidth="1033.0" />
    </children>
 </AnchorPane>
