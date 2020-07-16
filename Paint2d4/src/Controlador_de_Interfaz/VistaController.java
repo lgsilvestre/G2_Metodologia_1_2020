@@ -18,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
@@ -107,8 +108,8 @@ public class VistaController implements Initializable {
 
     @FXML
     public void getTexto(ActionEvent event) { 
-          Text texto1 = new Text(texto.getText());
- 
+        Text texto1 = new Text(texto.getText());
+        texto1.setFont(Font.font("Rage Italic", 30));
         textoIngresado.getChildren().add(texto1);   
     }
     
@@ -118,15 +119,7 @@ public class VistaController implements Initializable {
        
 //        operaciones.invertirTexto(operaciones.texto);
         operaciones.imprimir();
-        mostrarTexto();
-    }
-    public void mostrarTexto() {
-        
-        Text texto = new Text(operaciones.texto);
- 
-        textoIngresado.getChildren().add(texto);       
-        
-        
+       
     }
     
     @FXML
@@ -156,6 +149,11 @@ public class VistaController implements Initializable {
         if (puntocontrol==false) {
             
             textoIngresado=operaciones.separarTexto(texto.getText(),textoIngresado);
+            
+            textoIngresado.setMaxSize(950, 200);
+            textoIngresado.setLayoutX(40);
+            textoIngresado.setLayoutY(40);
+                    
             canvasPane.getChildren().clear();
             canvasPane.getChildren().add(textoIngresado);
             
@@ -164,6 +162,7 @@ public class VistaController implements Initializable {
             puntocontrol=true;
         }else{
             visualPunto.setStyle("-fx-background-color: rgb(0,68,114);");
+            aux.setFont(Font.font("Rage Italic", 30));
             textoIngresado.getChildren().clear();
             textoIngresado.getChildren().add(aux);
             textoIngresado.setLayoutX(X);
@@ -183,8 +182,11 @@ public class VistaController implements Initializable {
         // TODO    
         textoIngresado = new TextFlow();
         canvasPane.getChildren().add(textoIngresado);
+        
+        
     }      
 
+     @FXML
     private void desactivarTrasladar(MouseEvent event) {
         mover=false;
         trasladar.setStyle("-fx-background-color: rgb(0,68,114);");

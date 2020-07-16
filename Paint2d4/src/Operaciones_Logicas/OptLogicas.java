@@ -7,6 +7,7 @@ package Operaciones_Logicas;
 
 import java.util.ArrayList;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
@@ -30,13 +31,14 @@ public class OptLogicas {
          for (int i = 0; i <texto.length; i++) {
              if (texto[i]!=" ") {
                  
-                 Text text2= new Text("*");
+                 Text text2= new Text("·");
                  text2.setFill(Color.web("#EA4335"));
-                 
+                 text2.setFont(Font.font("Rage Italic", 60));
                  Text text3= new Text(texto[i]);
-                 
-                 Text text4= new Text("* ");
+                 text3.setFont(Font.font("Rage Italic", 30));
+                 Text text4= new Text(". ");
                  text4.setFill(Color.web("#EA4335"));
+                 text4.setFont(Font.font("Rage Italic", 60));
 //                System.out.println(text2.getText()+""+text3.getText()+""+text4.getText());
                  aux.getChildren().add(text2);
                  aux.getChildren().add(text3);
