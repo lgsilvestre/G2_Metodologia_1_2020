@@ -6,8 +6,12 @@
 package Controlador_de_Interfaz;
 
 import Operaciones_Logicas.OptLogicas;
+
 import Recursos.Imagen;
+import java.awt.font.TextAttribute;
+import java.io.InputStream;
 import java.net.URL;
+import java.util.Collections;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,9 +20,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
@@ -106,19 +114,13 @@ public class VistaController implements Initializable {
         menurotar.setVisible(false);
     }            
 
-    @FXML
-    public void getTexto(ActionEvent event) { 
-        Text texto1 = new Text(texto.getText());
-        texto1.setFont(Font.font("Rage Italic", 30));
-        textoIngresado.getChildren().add(texto1);   
-    }
+   
     
     @FXML
     public void invertir(ActionEvent event){
-        menuprincipal.setVisible(true);
+         
+        operaciones.invertirTexto(texto.getText());
        
-//        operaciones.invertirTexto(operaciones.texto);
-        operaciones.imprimir();
        
     }
     
@@ -203,6 +205,23 @@ public class VistaController implements Initializable {
              mover=false;
              trasladar.setStyle("-fx-background-color: rgb(0,68,114);");
         });
+    }
+
+    
+
+    @FXML
+    private void leertexto(KeyEvent event) {
+        textoIngresado.setMaxSize(950, 200);
+            textoIngresado.setLayoutX(40);
+            textoIngresado.setLayoutY(40);
+        textoIngresado.getChildren().clear();
+        
+        Text texto1 = new Text(texto.getText());
+        //Vladimir Script
+        Font fuente = Font.font("Rage Italic",60);
+        texto1.setFont(fuente);
+        
+        textoIngresado.getChildren().add(texto1);
     }
     
 }

@@ -33,12 +33,14 @@ public class OptLogicas {
                  
                  Text text2= new Text("·");
                  text2.setFill(Color.web("#EA4335"));
+                 
                  text2.setFont(Font.font("Rage Italic", 60));
                  Text text3= new Text(texto[i]);
                  text3.setFont(Font.font("Rage Italic", 30));
                  Text text4= new Text(". ");
                  text4.setFill(Color.web("#EA4335"));
                  text4.setFont(Font.font("Rage Italic", 60));
+                //TAMAÑO/NEGRITA/CURSUVA/SUBRAYADO
 //                System.out.println(text2.getText()+""+text3.getText()+""+text4.getText());
                  aux.getChildren().add(text2);
                  aux.getChildren().add(text3);
@@ -56,13 +58,9 @@ public class OptLogicas {
         }
     }
     
-//    public void invertirTexto(String text){
-//        String invertida ="";
-//        for (int i = text.length()-1; i >= 0; i--) {
-//            invertida+=text.charAt(i);
-//        }
-//        separarTexto(invertida);
-//    }
+    public void invertirTexto(String text){
+        
+    }
     
     public String rotar(String valor,int rotacion){
         int val =Integer.parseInt(valor);
