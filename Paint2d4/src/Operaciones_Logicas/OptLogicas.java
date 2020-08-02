@@ -5,9 +5,14 @@
  */
 package Operaciones_Logicas;
 
+import com.sun.javafx.css.converters.FontConverter;
 import java.util.ArrayList;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
@@ -18,36 +23,35 @@ import javafx.scene.text.TextFlow;
 public class OptLogicas {
      public ArrayList<String> palabras = new ArrayList<>();
      public ArrayList<String> list = new ArrayList<>();
-     public String texto ="";
+     
      public String texto2 ="";
      
-     public TextFlow separarTexto(String text,TextFlow aux2){
+     public TextFlow separarTexto(String text,TextFlow aux2,ArrayList<Text> textos){
          TextFlow aux= new TextFlow();
          aux.setLayoutY(aux2.getLayoutX());
          aux.setLayoutX(aux2.getLayoutY());
          aux.setRotate(aux2.getRotate());
          String[] texto = text.split(" ");
-         
-         for (int i = 0; i <texto.length; i++) {
-             if (texto[i]!=" ") {
-                 
-                 Text text2= new Text("·");
-                 text2.setFill(Color.web("#EA4335"));
-                 
-                 text2.setFont(Font.font("Rage Italic", 60));
-                 Text text3= new Text(texto[i]);
-                 text3.setFont(Font.font("Rage Italic", 30));
-                 Text text4= new Text(". ");
-                 text4.setFill(Color.web("#EA4335"));
-                 text4.setFont(Font.font("Rage Italic", 60));
-                //TAMAÑO/NEGRITA/CURSUVA/SUBRAYADO
-//                System.out.println(text2.getText()+""+text3.getText()+""+text4.getText());
-                 aux.getChildren().add(text2);
-                 aux.getChildren().add(text3);
-                 aux.getChildren().add(text4);
-             }
+         for (int i = 0; i < textos.size(); i++) {
+             Text text2 = new Text("*");
+             text2.setFill(Color.web("#EA4335"));
+             text2.setFont(textos.get(i).getFont());
+             Text text3= new Text(textos.get(i).getText());
+             String NombreFont = textos.get(i).getFont().getFamily();
+             Double sizeFont = textos.get(i).getFont().getSize();
+             String FontWeight = textos.get(i).getFont().getStyle();
+             
             
+             text3.setFont(textos.get(i).getFont());
+             Text text4= new Text("* ");
+             text4.setFill(Color.web("#EA4335"));
+             text4.setFont(textos.get(i).getFont());
+             aux.getChildren().add(text2);
+             aux.getChildren().add(text3);
+             aux.getChildren().add(text4);             
          }
+         
+
          return aux;
         
 
@@ -73,9 +77,22 @@ public class OptLogicas {
         valor =Integer.toString(val);
         return valor;
     }
-    
-    
-    public void agregarPuntosControl(){
-
+    public void cargarDatos(ObservableList lista,ChoiceBox<String> Menupalabras,TextFlow texto,ArrayList<Text> textos){
+        Text aux = new Text();
+        for (int i = 0; i < texto.getChildren().size(); i++) {
+            aux= (Text) texto.getChildren().get(i);
+            textos.add(aux);
+            lista.add(aux.getText());  
+            
+        }
+        
+        Menupalabras.getItems().addAll(lista);
+        
     }
+    public void detectarDatos(Text palabra,ArrayList<Text> textos){
+        
+        
+        
+    }
+    
 }
