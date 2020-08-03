@@ -71,6 +71,9 @@ public class VistaController implements Initializable {
     private Pane canvasPane;
     boolean mover =false;
     boolean puntocontrol=false;
+    boolean darformato =false;
+    boolean rotar =false;
+    
     String textoaux; 
     @FXML
     private Button rotarD;
@@ -102,6 +105,8 @@ public class VistaController implements Initializable {
     
     @FXML
     private ImageView radar;
+    @FXML
+    private Button botonDarFormato;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO    
@@ -118,17 +123,41 @@ public class VistaController implements Initializable {
     @FXML
     public void menuRotar(ActionEvent event){
        
-          
+        if (rotar==false) {
+            mrotar.setStyle("-fx-background-color: #08b2c9;");
+            botonDarFormato.setStyle("-fx-background-color: rgb(0,68,114);");
             menudarformato.setVisible(false);
             menurotar.setVisible(true);
-       
-        
+            rotar=true;
+            darformato=false;
+        }
+        else{
+            mrotar.setStyle("-fx-background-color: rgb(0,68,114);");
+            menurotar.setVisible(false);
+            menudarformato.setVisible(false);
+            rotar=false;
+        }
+            
     }  
     @FXML
     public void menuDarFormato(ActionEvent event){
         
-        menudarformato.setVisible(true);
-        menurotar.setVisible(false);
+        if (darformato==false) {
+            botonDarFormato.setStyle("-fx-background-color: #08b2c9;");
+            menudarformato.setVisible(true);
+            mrotar.setStyle("-fx-background-color: rgb(0,68,114);");
+            menurotar.setVisible(false);
+            darformato=true;
+            rotar=false;
+        }
+        else{
+            botonDarFormato.setStyle("-fx-background-color: rgb(0,68,114);");
+            menudarformato.setVisible(false);
+            menurotar.setVisible(false);
+            darformato=false;
+        }
+        
+        
         
         
         
@@ -229,8 +258,7 @@ public class VistaController implements Initializable {
         textoIngresado.getChildren().clear();
         
         String [] aux = texto.getText().split(" ");
-        String letra="";
-        String espacio="";
+        
         for (int i = 0; i < aux.length; i++) {
             if (aux[i]!=" ") {
                 Text texto1 = new Text(aux[i]);
