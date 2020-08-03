@@ -29,6 +29,8 @@ import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -190,6 +192,7 @@ public class VistaController implements Initializable {
     public void trasladarTexto(MouseEvent event){
         
         if (mover) {
+            
             textoIngresado.setLayoutX(event.getX());
             textoIngresado.setLayoutY(event.getY());    
         }     
@@ -210,19 +213,19 @@ public class VistaController implements Initializable {
             textoIngresado.setMaxSize(950, 200);
             textoIngresado.setLayoutX(X);
             textoIngresado.setLayoutY(Y);
+            textoIngresado.setRotate(rota);
             puntocontrol=true;
         }else{
             visualPunto.setStyle("-fx-background-color: rgb(0,68,114);");
             aux.setFont(Font.font("Segoe Script", 30));
-            textoIngresado.setMaxSize(950, 200);
-            textoIngresado.setLayoutX(X);
-            textoIngresado.setLayoutY(Y);
-            textoIngresado.setRotate(rota);
-            canvasPane.getChildren().clear();
-            canvasPane.getChildren().add(textoIngresado);
+            Text aux2= new Text();
+            for (int i = 0; i < textoIngresado.getChildren().size(); i++) {
+                aux2 = (Text) textoIngresado.getChildren().get(i);
+                if (aux2.getFill().equals(Color.web("#EA4335"))) {
+                    textoIngresado.getChildren().remove(aux2);
+                }
+            }
             puntocontrol=false;
-        
-            
         }
 //        textoIngresado.setText(operaciones.list.toString());
         
@@ -233,6 +236,7 @@ public class VistaController implements Initializable {
     private void desactivarTrasladar(MouseEvent event) {
         mover=false;
         trasladar.setStyle("-fx-background-color: rgb(0,68,114);");
+       
 //         System.out.println(textoIngresado.getLayoutX()+" "+textoIngresado.getLayoutY());
         
     }
@@ -301,7 +305,7 @@ public class VistaController implements Initializable {
         
         Text aux2 = new Text();
         
-        System.out.println("...");
+       
         
          for (int i = 0; i <textos.size(); i++) {
              aux2= (Text) textoIngresado.getChildren().get(i);
@@ -314,7 +318,7 @@ public class VistaController implements Initializable {
              aux2.setFont(textos.get(i).getFont());
             
         }
-          System.out.println("...");
+        
     
         Menupalabras.getItems().removeAll(lista);
         lista.clear();
