@@ -48,18 +48,11 @@ public class OptLogicas {
 
 
              }else{
-//                Text text2 = new Text(" ");
-//                
-//                text2.setFont(auxpalabra.getFont());
-//                aux.getChildren().add(text2);
+
              }
              
          }
-//         aux.setLayoutY(aux2.getLayoutX());
-//         aux.setLayoutX(aux2.getLayoutY());
-//         aux.setRotate(aux2.getRotate());
-//         Canvas.getChildren().clear();
-//         Canvas.getChildren().add(aux);
+
     }
     public void imprimir(){
         for (int i = 0; i < palabras.size(); i++) {

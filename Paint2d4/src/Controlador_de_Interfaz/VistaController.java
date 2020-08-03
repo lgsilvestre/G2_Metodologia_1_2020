@@ -203,6 +203,8 @@ public class VistaController implements Initializable {
         menuprincipal.setVisible(true);
         
         
+        
+        
         Text aux =new Text(texto.getText());
         X= textoIngresado.getLayoutX();
         Y= textoIngresado.getLayoutY();
@@ -215,6 +217,16 @@ public class VistaController implements Initializable {
             textoIngresado.setLayoutY(Y);
             textoIngresado.setRotate(rota);
             puntocontrol=true;
+            Menupalabras.getItems().removeAll(lista);
+            lista.clear();
+            textos.clear();
+            operaciones.cargarDatos(lista, Menupalabras, textoIngresado,textos);
+            if (lista.size()!=0) {
+             Menupalabras.setValue((String) lista.get(0)); 
+             IndexPalabra=0;
+             ActionEvent event2 = new ActionEvent();
+             leerPalabra(event2);
+            }
         }else{
             visualPunto.setStyle("-fx-background-color: rgb(0,68,114);");
             aux.setFont(Font.font("Segoe Script", 30));
@@ -225,6 +237,17 @@ public class VistaController implements Initializable {
                     textoIngresado.getChildren().remove(aux2);
                 }
             }
+            Menupalabras.getItems().removeAll(lista);
+            lista.clear();
+            textos.clear();
+            operaciones.cargarDatos(lista, Menupalabras, textoIngresado,textos);
+            if (lista.size()!=0) {
+                Menupalabras.setValue((String) lista.get(0));
+                IndexPalabra=0;
+                ActionEvent event2 = new ActionEvent();
+             leerPalabra(event2);
+            }
+            
             puntocontrol=false;
         }
 //        textoIngresado.setText(operaciones.list.toString());
@@ -266,7 +289,7 @@ public class VistaController implements Initializable {
         for (int i = 0; i < aux.length; i++) {
             if (aux[i]!=" ") {
                 Text texto1 = new Text(aux[i]);
-                Font fuente = Font.font("Segoe Script",65);
+                Font fuente = Font.font("Segoe Script",30);
                 texto1.setFont(fuente);
                 Text texto2 = new Text(" ");
                 texto2.setFont(fuente);
@@ -274,7 +297,7 @@ public class VistaController implements Initializable {
                   //textoIngresado.getChildren().add(texto2);
             }else{
                 Text texto1 = new Text(" ");
-                Font fuente = Font.font("Segoe Script",65);
+                Font fuente = Font.font("Segoe Script",30);
                 texto1.setFont(fuente);
                 
                 textoIngresado.getChildren().add(texto1);
@@ -286,7 +309,7 @@ public class VistaController implements Initializable {
                 aux1= (Text) textoIngresado.getChildren().get(j);
                 if (aux1.getText()!=" ") {
                     Text texto2 = new Text(" ");
-                    Font fuente = Font.font("Segoe Script",65);
+                    Font fuente = Font.font("Segoe Script",30);
                     texto2.setFont(fuente);
                     textoIngresado.getChildren().add(j+1, texto2);
                 }
@@ -327,7 +350,9 @@ public class VistaController implements Initializable {
         
         if (lista.size()!=0) {
              Menupalabras.setValue((String) lista.get(0)); 
-             
+             IndexPalabra=0;
+             ActionEvent event2 = new ActionEvent();
+             leerPalabra(event2);
         }
         
     }
