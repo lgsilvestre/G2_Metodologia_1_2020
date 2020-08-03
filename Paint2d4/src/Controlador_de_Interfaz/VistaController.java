@@ -227,6 +227,7 @@ public class VistaController implements Initializable {
         textoIngresado.setLayoutX(40);
         textoIngresado.setLayoutY(40);
         textoIngresado.getChildren().clear();
+        
         String [] aux = texto.getText().split(" ");
         String letra="";
         String espacio="";
@@ -270,7 +271,23 @@ public class VistaController implements Initializable {
                 }
         }    
         
-
+        Text aux2 = new Text();
+        
+        System.out.println("...");
+        
+         for (int i = 0; i <textos.size(); i++) {
+             aux2= (Text) textoIngresado.getChildren().get(i);
+             boolean subrayado;
+             if (textos.get(i).isUnderline()) {
+                 aux2.setUnderline(true);
+             }else{
+                 aux2.setUnderline(false);
+             }
+             aux2.setFont(textos.get(i).getFont());
+            
+        }
+          System.out.println("...");
+    
         Menupalabras.getItems().removeAll(lista);
         lista.clear();
         textos.clear();
@@ -280,7 +297,6 @@ public class VistaController implements Initializable {
              Menupalabras.setValue((String) lista.get(0)); 
              
         }
-        copiaseguridad = textoIngresado;
         
     }
     Text PalabraSeleccioanda;
