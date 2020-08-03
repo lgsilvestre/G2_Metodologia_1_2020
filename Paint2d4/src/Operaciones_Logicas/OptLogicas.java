@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -26,35 +27,38 @@ public class OptLogicas {
      
      public String texto2 ="";
      
-     public TextFlow separarTexto(String text,TextFlow aux2,ArrayList<Text> textos){
+     public void separarTexto(String text,TextFlow aux2,ArrayList<Text> textos,Pane Canvas){
          TextFlow aux= new TextFlow();
          aux.setLayoutY(aux2.getLayoutX());
          aux.setLayoutX(aux2.getLayoutY());
          aux.setRotate(aux2.getRotate());
-         String[] texto = text.split(" ");
-         for (int i = 0; i < textos.size(); i++) {
-             Text text2 = new Text("*");
-             text2.setFill(Color.web("#EA4335"));
-             text2.setFont(textos.get(i).getFont());
-             Text text3= new Text(textos.get(i).getText());
-             String NombreFont = textos.get(i).getFont().getFamily();
-             Double sizeFont = textos.get(i).getFont().getSize();
-             String FontWeight = textos.get(i).getFont().getStyle();
+        Text auxpalabra = new Text();
+         for (int i = 0; i < aux2.getChildren().size(); i++) {
+             auxpalabra = (Text) aux2.getChildren().get(i);
              
-            
-             text3.setFont(textos.get(i).getFont());
-             Text text4= new Text("* ");
-             text4.setFill(Color.web("#EA4335"));
-             text4.setFont(textos.get(i).getFont());
-             aux.getChildren().add(text2);
-             aux.getChildren().add(text3);
-             aux.getChildren().add(text4);             
+             if (auxpalabra.getText()!=" ") {
+                Text text2 = new Text("*");
+                text2.setFill(Color.web("#EA4335")); 
+                text2.setFont(auxpalabra.getFont());
+                Text text3 = new Text(auxpalabra.getText());
+                text3.setFont(auxpalabra.getFont());
+                Text text4 = new Text("*");
+                text4.setFill(Color.web("#EA4335")); 
+                text4.setFont(auxpalabra.getFont());
+                aux.getChildren().add(text2);
+                aux.getChildren().add(text3);
+                aux.getChildren().add(text4);  
+
+             }else{
+                Text text2 = new Text(" ");
+                
+                text2.setFont(auxpalabra.getFont());
+                aux.getChildren().add(text2);
+             }
+             
          }
-         
-
-         return aux;
-        
-
+         Canvas.getChildren().clear();
+         Canvas.getChildren().add(aux);
     }
     public void imprimir(){
         for (int i = 0; i < palabras.size(); i++) {
@@ -81,8 +85,15 @@ public class OptLogicas {
         Text aux = new Text();
         for (int i = 0; i < texto.getChildren().size(); i++) {
             aux= (Text) texto.getChildren().get(i);
+            
+                
+            if (aux.getText()!=" ") {
+                
+                
+                lista.add(i+"-"+aux.getText()); 
+            }
             textos.add(aux);
-            lista.add(aux.getText());  
+             
             
         }
         

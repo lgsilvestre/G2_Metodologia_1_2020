@@ -138,22 +138,12 @@ public class VistaController implements Initializable {
     public void rotarIzquierda(ActionEvent event){
         
         textoIngresado.setRotate(textoIngresado.getRotate()+30);
-        
         letraradar.setText(operaciones.rotar(letraradar.getText(), +30));
-        
-         
-        
-        
     } 
     @FXML
     public void rotarDerecha(ActionEvent event){
-        
         textoIngresado.setRotate(textoIngresado.getRotate()-30);
-       
-        
         letraradar.setText(operaciones.rotar(letraradar.getText(),-30));
-        
-       
     }    
              
 
@@ -171,17 +161,11 @@ public class VistaController implements Initializable {
     public void trasladarTexto(MouseEvent event){
         
         if (mover) {
-            
             textoIngresado.setLayoutX(event.getX());
-            textoIngresado.setLayoutY(event.getY());
-            
-        }
-        
-     
-          
-        
+            textoIngresado.setLayoutY(event.getY());    
+        }     
    }
-    
+    TextFlow copiaseguridad = new TextFlow();
     @FXML
     public void visualizarPuntos(ActionEvent event){
         menuprincipal.setVisible(true);
@@ -193,25 +177,15 @@ public class VistaController implements Initializable {
         rota= textoIngresado.getRotate();
         visualPunto.setStyle("-fx-background-color: #08b2c9;");
         if (puntocontrol==false) {
-            
-            textoIngresado=operaciones.separarTexto(texto.getText(),textoIngresado,textos);
-            
+            operaciones.separarTexto(texto.getText(),textoIngresado,textos,canvasPane);
             textoIngresado.setMaxSize(950, 200);
             textoIngresado.setLayoutX(X);
             textoIngresado.setLayoutY(Y);
-                    
-            canvasPane.getChildren().clear();
-            canvasPane.getChildren().add(textoIngresado);
             puntocontrol=true;
         }else{
             visualPunto.setStyle("-fx-background-color: rgb(0,68,114);");
             aux.setFont(Font.font("Segoe Script", 30));
-            textoIngresado.getChildren().clear();
-            for (int i = 0; i < textos.size(); i++) {
-                textoIngresado.getChildren().add(textos.get(i));
-            }
             textoIngresado.setMaxSize(950, 200);
-            
             textoIngresado.setLayoutX(X);
             textoIngresado.setLayoutY(Y);
             textoIngresado.setRotate(rota);
@@ -230,7 +204,7 @@ public class VistaController implements Initializable {
     private void desactivarTrasladar(MouseEvent event) {
         mover=false;
         trasladar.setStyle("-fx-background-color: rgb(0,68,114);");
-         System.out.println(textoIngresado.getLayoutX()+" "+textoIngresado.getLayoutY());
+//         System.out.println(textoIngresado.getLayoutX()+" "+textoIngresado.getLayoutY());
         
     }
 
@@ -245,7 +219,7 @@ public class VistaController implements Initializable {
         });
     }
 
-    
+    TextFlow auxiliar;
 
     @FXML
     private void leertexto(KeyEvent event) {
@@ -254,21 +228,59 @@ public class VistaController implements Initializable {
         textoIngresado.setLayoutY(40);
         textoIngresado.getChildren().clear();
         String [] aux = texto.getText().split(" ");
-        
+        String letra="";
+        String espacio="";
         for (int i = 0; i < aux.length; i++) {
-            Text texto1 = new Text(aux[i]+" ");
-            Font fuente = Font.font("Segoe Script",65);
-            texto1.setFont(fuente);
-            textoIngresado.getChildren().add(texto1);
+            if (aux[i]!=" ") {
+                Text texto1 = new Text(aux[i]);
+                Font fuente = Font.font("Segoe Script",65);
+                texto1.setFont(fuente);
+                Text texto2 = new Text(" ");
+                texto2.setFont(fuente);
+                 textoIngresado.getChildren().add(texto1);
+                  //textoIngresado.getChildren().add(texto2);
+            }else{
+                Text texto1 = new Text(" ");
+                Font fuente = Font.font("Segoe Script",65);
+                texto1.setFont(fuente);
+                
+                textoIngresado.getChildren().add(texto1);
+               
+            }
+        } 
+        Text aux1 = new Text();
+        for (int j = 0; j < textoIngresado.getChildren().size(); j++) {
+                aux1= (Text) textoIngresado.getChildren().get(j);
+                if (aux1.getText()!=" ") {
+                    Text texto2 = new Text(" ");
+                    Font fuente = Font.font("Segoe Script",65);
+                    texto2.setFont(fuente);
+                    textoIngresado.getChildren().add(j+1, texto2);
+                }
+                
         }
+        textoIngresado.getChildren().remove(textoIngresado.getChildren().size()-1);
+            
+        for (int j = 0; j < textoIngresado.getChildren().size(); j++) {
+                aux1= (Text) textoIngresado.getChildren().get(j);
+                
+                if (aux1.getText().isEmpty()) {
+                    textoIngresado.getChildren().remove(j);
+                
+                }
+        }    
         
-        //Vladimir Script
-       
+
         Menupalabras.getItems().removeAll(lista);
         lista.clear();
         textos.clear();
         operaciones.cargarDatos(lista, Menupalabras, textoIngresado,textos);
-        Menupalabras.setValue((String) lista.get(0));
+        
+        if (lista.size()!=0) {
+             Menupalabras.setValue((String) lista.get(0)); 
+             
+        }
+        copiaseguridad = textoIngresado;
         
     }
     Text PalabraSeleccioanda;
@@ -276,24 +288,20 @@ public class VistaController implements Initializable {
     @FXML
     private void leerPalabra(ActionEvent event) {
         Menupalabras.valueProperty().getValue();
-        
- 
         if (textos.size()!=0) {
-            Text aux = textos.get(Menupalabras.getSelectionModel().getSelectedIndex());
+            String[] indice = Menupalabras.getValue().split("-");
+            IndexPalabra= Integer.parseInt(indice[0]);
+            Text aux = (Text) textoIngresado.getChildren().get(IndexPalabra);
             PalabraSeleccioanda = aux;
-            IndexPalabra=Menupalabras.getSelectionModel().getSelectedIndex();
-            
             if (aux.getFont().getFamily().equals("Segoe Script")) {
                 Cursiva.setImage(CursivaImage);
                 if (aux.getFont().getStyle().equals("Regular")) {
                     Negrita.setImage(NegritaImage);
-                
                 }else if (aux.getFont().getStyle().equals("Bold")) {
                     Negrita.setImage(NegritaIP);
                 }
                 if (aux.isUnderline()== true) {
-                    Subrayado.setImage(SubrayadoIP);
-                    
+                    Subrayado.setImage(SubrayadoIP);   
                 }else{
                     Subrayado.setImage(SubrayadoImage);
                 }
@@ -303,60 +311,147 @@ public class VistaController implements Initializable {
                 Negrita.setImage(NegritaImage);
                  if (aux.isUnderline()== true) {
                     Subrayado.setImage(SubrayadoIP);
-                    
                 }else{
                     Subrayado.setImage(SubrayadoImage);
                 }
-                
             }if (aux.getFont().getFamily().equals("Mistral")) {
                 Cursiva.setImage(CursivaIP);
                 Negrita.setImage(NegritaIP);
                  if (aux.isUnderline()== true) {
-                    Subrayado.setImage(SubrayadoIP);
-                    
+                    Subrayado.setImage(SubrayadoIP);  
                 }else{
                     Subrayado.setImage(SubrayadoImage);
-                }
-                
+                }   
             }
-        }
-        
-       
+        }  
     }
     Boolean SubrayadoB=false;
     @FXML
     private void SubrayadoPresionado(MouseEvent event) {
-        
-//        if (SubrayadoB==false) {
-//           
-//            SubrayadoB=true;
-//            Subrayado.setImage(SubrayadoIP);
-//            textos.add(IndexPalabra, PalabraSeleccioanda);
-//            
-//            
-//        }else{
-//            PalabraSeleccioanda.setUnderline(false);
-//            SubrayadoB=false;
-//            Subrayado.setImage(SubrayadoImage);
-//            textos.add(IndexPalabra, PalabraSeleccioanda);
-//            textoIngresado.getChildren().clear();
-//            canvasPane.getChildren().clear();
-//            for (int i = 0; i < textos.size(); i++) {
-//                textoIngresado.getChildren().add(textos.get(i));
-//            }
-//            canvasPane.getChildren().add(textoIngresado);
-//        }
+        if (SubrayadoB==false) {
+            SubrayadoB=true;
+            Subrayado.setImage(SubrayadoIP);
+            Text aux = new Text();
+            aux= (Text) textoIngresado.getChildren().get(IndexPalabra);
+            aux.setUnderline(true);
+        }else{
+            PalabraSeleccioanda.setUnderline(false);
+            SubrayadoB=false;
+            Subrayado.setImage(SubrayadoImage);
+            Text aux = new Text();
+            aux= (Text) textoIngresado.getChildren().get(IndexPalabra);
+            aux.setUnderline(false);
+        }
        
     }
-
+    Boolean NegritaB =false;
     @FXML
     private void NegritaPresionado(MouseEvent event) {
-        
+            Text aux = new Text();
+            aux= (Text) textoIngresado.getChildren().get(IndexPalabra);
+             boolean subrayado;
+                if (aux.isUnderline()) {
+                    subrayado=true;
+                }else{
+                    subrayado=false;
+                }
+            if (aux.getFont().getFamily().equals("Segoe Script")) {
+                if (subrayado) {
+                    aux.setUnderline(true);
+                }else{
+                    aux.setUnderline(false);
+                }
+                if (aux.getFont().getStyle().equals("Regular")) {
+                    Font fuente = Font.font("Segoe Script",FontWeight.BOLD,aux.getFont().getSize());
+                    aux.setFont(fuente);
+                    Negrita.setImage(NegritaIP);
+                }else if (aux.getFont().getStyle().equals("Bold")) {
+                    Font fuente = Font.font("Segoe Script",aux.getFont().getSize());
+                    aux.setFont(fuente);
+                    Negrita.setImage(NegritaImage);
+                } 
+            }
+            else if (aux.getFont().getFamily().equals("Vladimir Script")) {
+                Font fuente = Font.font("Mistral",aux.getFont().getSize());
+                aux.setFont(fuente);
+                Negrita.setImage(NegritaIP);
+                if (subrayado) {
+                    aux.setUnderline(true);
+                }else{
+                    aux.setUnderline(false);
+                }
+            }
+            else if (aux.getFont().getFamily().equals("Mistral")) {
+                Font fuente = Font.font("Vladimir Script",aux.getFont().getSize());
+                aux.setFont(fuente);
+                Negrita.setImage(NegritaImage);
+                
+            }     
     }
 
     @FXML
     private void CursivaPresionado(MouseEvent event) {
-        
+        Text aux = new Text();
+        aux= (Text) textoIngresado.getChildren().get(IndexPalabra);
+        boolean subrayado;
+        if (aux.isUnderline()) {
+            subrayado=true;
+        }else{
+            subrayado=false;
+        }
+        if (aux.getFont().getFamily().equals("Segoe Script")) {
+                if (subrayado) {
+                    aux.setUnderline(true);
+                }else{
+                    aux.setUnderline(false);
+                }
+                if (aux.getFont().getStyle().equals("Regular")) {
+                    Font fuente = Font.font("Vladimir Script",aux.getFont().getSize());
+                    aux.setFont(fuente);
+                    Cursiva.setImage(CursivaIP);
+                    
+                }else if (aux.getFont().getStyle().equals("Bold")) {
+                    Font fuente = Font.font("Mistral",aux.getFont().getSize());
+                    aux.setFont(fuente);
+                    Cursiva.setImage(CursivaIP);
+                    
+                }
+                
+            }
+            else if (aux.getFont().getFamily().equals("Vladimir Script")) {
+                
+                
+                Font fuente = Font.font("Segoe Script",aux.getFont().getSize());
+                
+                aux.setFont(fuente);
+                
+                Cursiva.setImage(CursivaImage);
+                if (subrayado) {
+                    aux.setUnderline(true);
+                }else{
+                    aux.setUnderline(false);
+                }
+                
+                
+                
+                
+                
+                
+                
+                
+            }
+            else if (aux.getFont().getFamily().equals("Mistral")) {
+                Font fuente = Font.font("Segoe Script",FontWeight.BOLD,aux.getFont().getSize());
+                aux.setFont(fuente);
+                Cursiva.setImage(CursivaImage);
+                if (subrayado) {
+                    aux.setUnderline(true);
+                }else{
+                    aux.setUnderline(false);
+                }
+                
+            }
+            
     }
     
 }
