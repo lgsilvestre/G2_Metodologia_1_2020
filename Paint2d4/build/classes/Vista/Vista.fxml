@@ -2,7 +2,7 @@
 
 <?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" onMousePressed="#desactivarTrasladar" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador_de_Interfaz.VistaController">
+<AnchorPane id="AnchorPane" onMousePressed="#desactivarTrasladar" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador_de_Interfaz.VistaController">
    <children>
       <Pane layoutY="14.0" prefHeight="153.0" prefWidth="1280.0" style="-fx-background-color: rgb(1,110,179);" AnchorPane.bottomAnchor="567.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -66,24 +66,6 @@
       <Pane fx:id="canvasPane" layoutX="249.0" layoutY="154.0" onMouseMoved="#trasladarTexto" prefHeight="567.0" prefWidth="1033.0" />
       <Pane fx:id="menuprincipal" layoutY="399.0" prefHeight="322.0" prefWidth="249.0" style="-fx-background-color: rgb(1,110,179);">
          <children>
-            <TextField alignment="CENTER" layoutX="-4.0" layoutY="-8.0" prefHeight="55.0" prefWidth="257.0" style="-fx-background-color: rgb(1,110,179); -fx-border-color: white; -fx-border-width: 3; -fx-text-fill: white;" text="Menu Seleccionado">
-               <font>
-                  <Font name="Microsoft YaHei Light" size="19.0" />
-               </font>
-            </TextField>
-            <Pane fx:id="menudarformato" layoutY="48.0" prefHeight="274.0" prefWidth="249.0" style="-fx-background-color: rgb(1,110,179);">
-               <children>
-                  <ChoiceBox fx:id="Menupalabras" layoutY="2.0" prefHeight="25.0" prefWidth="249.0" />
-                  <Button fx:id="seleccionarPalabra" layoutX="99.0" layoutY="37.0" mnemonicParsing="false" onAction="#leerPalabra" text="Ingresar" />
-                  <Pane layoutX="-1.0" layoutY="62.0" prefHeight="212.0" prefWidth="249.0">
-                     <children>
-                        <ImageView fx:id="Subrayado" fitHeight="70.0" fitWidth="80.0" layoutX="170.0" layoutY="120.0" onMouseClicked="#SubrayadoPresionado" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="Negrita" fitHeight="70.0" fitWidth="80.0" layoutX="14.0" layoutY="122.0" onMouseClicked="#NegritaPresionado" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="Cursiva" fitHeight="70.0" fitWidth="80.0" layoutX="90.0" layoutY="120.0" onMouseClicked="#CursivaPresionado" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </Pane>
-               </children>
-            </Pane>
             <Pane fx:id="menurotar" layoutY="48.0" prefHeight="274.0" prefWidth="249.0" style="-fx-background-color: rgb(1,110,179);">
                <children>
                   <ImageView fx:id="radar" fitHeight="162.0" fitWidth="154.0" layoutX="48.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
@@ -98,6 +80,23 @@
                   </TextField>
                   <Button fx:id="rotarizquierda" layoutX="179.0" layoutY="122.0" mnemonicParsing="false" onAction="#rotarIzquierda" prefHeight="31.0" prefWidth="23.0" style="-fx-background-color: transparent;" />
                   <Button fx:id="rotarD" layoutX="48.0" layoutY="122.0" mnemonicParsing="false" onAction="#rotarDerecha" prefHeight="31.0" prefWidth="23.0" style="-fx-background-color: transparent;" />
+               </children>
+            </Pane>
+            <TextField alignment="CENTER" layoutX="-4.0" layoutY="-8.0" prefHeight="55.0" prefWidth="257.0" style="-fx-background-color: rgb(1,110,179); -fx-border-color: white; -fx-border-width: 3; -fx-text-fill: white;" text="Menu Seleccionado">
+               <font>
+                  <Font name="Microsoft YaHei Light" size="19.0" />
+               </font>
+            </TextField>
+            <Pane fx:id="menudarformato" layoutY="48.0" prefHeight="274.0" prefWidth="249.0" style="-fx-background-color: rgb(1,110,179);">
+               <children>
+                  <Pane layoutX="-1.0" layoutY="111.0" prefHeight="163.0" prefWidth="249.0">
+                     <children>
+                        <ImageView fx:id="Subrayado" fitHeight="70.0" fitWidth="80.0" layoutX="170.0" layoutY="93.0" onMouseClicked="#SubrayadoPresionado" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="Negrita" fitHeight="70.0" fitWidth="80.0" layoutY="93.0" onMouseClicked="#NegritaPresionado" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="Cursiva" fitHeight="70.0" fitWidth="80.0" layoutX="90.0" layoutY="93.0" onMouseClicked="#CursivaPresionado" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                  </Pane>
+                  <ListView fx:id="ListaPalabras" onMouseClicked="#LeerPalabra" prefHeight="111.0" prefWidth="249.0" />
                </children>
             </Pane>
          </children>

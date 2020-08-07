@@ -7,9 +7,21 @@ package Operaciones_Logicas;
 
 import com.sun.javafx.css.converters.FontConverter;
 import java.util.ArrayList;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.AccessibleRole;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -75,29 +87,24 @@ public class OptLogicas {
         valor =Integer.toString(val);
         return valor;
     }
-    public void cargarDatos(ObservableList lista,ChoiceBox<String> Menupalabras,TextFlow texto,ArrayList<Text> textos){
-        Text aux = new Text();
-        for (int i = 0; i < texto.getChildren().size(); i++) {
-            aux= (Text) texto.getChildren().get(i);
-            
-                
-            if (aux.getText()!=" ") {
-                
-                
-                lista.add(i+"-"+aux.getText()); 
-            }
-            textos.add(aux);
-             
-            
-        }
-        
-        Menupalabras.getItems().addAll(lista);
-        
-    }
-    public void detectarDatos(Text palabra,ArrayList<Text> textos){
-        
-        
-        
+    @FunctionalInterface
+    interface  IFunc{
+        void display();
     }
     
+    public void cargarDatos(ObservableList lista,ListView<String> ListaPalabras,TextFlow texto,ArrayList<Text> textos,int indicePalabra){
+        Text aux = new Text();
+        
+        for (int i = 0; i < texto.getChildren().size(); i++) {
+            aux= (Text) texto.getChildren().get(i);
+            final int count = i;
+                
+            if (aux.getText()!=" ") {
+                ListaPalabras.getItems().add(aux.getText());  
+            }
+             textos.add(aux);
+    
+    
+        }   
+    }
 }

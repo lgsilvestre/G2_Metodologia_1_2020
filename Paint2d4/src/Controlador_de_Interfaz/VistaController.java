@@ -21,6 +21,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -85,12 +86,9 @@ public class VistaController implements Initializable {
     private Button trasladar;
     @FXML
     private Button visualPunto;
-    @FXML
     private ChoiceBox<String> Menupalabras;
     ObservableList lista= FXCollections.observableArrayList();
     ArrayList<Text> textos = new ArrayList<>();
-    @FXML
-    private Button seleccionarPalabra;
     @FXML
     private ImageView Subrayado= new ImageView();;
     public Image SubrayadoImage = new Image("/Imagenes/boton-08.png");
@@ -109,6 +107,9 @@ public class VistaController implements Initializable {
     private ImageView radar;
     @FXML
     private Button botonDarFormato;
+    @FXML
+    private ListView<String> ListaPalabras;
+    int IndexPalabra;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO    
@@ -220,13 +221,8 @@ public class VistaController implements Initializable {
             Menupalabras.getItems().removeAll(lista);
             lista.clear();
             textos.clear();
-            operaciones.cargarDatos(lista, Menupalabras, textoIngresado,textos);
-            if (lista.size()!=0) {
-             Menupalabras.setValue((String) lista.get(0)); 
-             IndexPalabra=0;
-             ActionEvent event2 = new ActionEvent();
-             leerPalabra(event2);
-            }
+            //operaciones.cargarDatos(lista, Menupalabras, textoIngresado,textos);
+            
         }else{
             visualPunto.setStyle("-fx-background-color: rgb(0,68,114);");
             aux.setFont(Font.font("Segoe Script", 30));
@@ -240,13 +236,8 @@ public class VistaController implements Initializable {
             Menupalabras.getItems().removeAll(lista);
             lista.clear();
             textos.clear();
-            operaciones.cargarDatos(lista, Menupalabras, textoIngresado,textos);
-            if (lista.size()!=0) {
-                Menupalabras.setValue((String) lista.get(0));
-                IndexPalabra=0;
-                ActionEvent event2 = new ActionEvent();
-             leerPalabra(event2);
-            }
+           operaciones.cargarDatos(lista, ListaPalabras, textoIngresado,textos,IndexPalabra);
+            
             
             puntocontrol=false;
         }
@@ -330,74 +321,33 @@ public class VistaController implements Initializable {
         
        
         
+       
+        
+    
+        
+        textos.clear();
+        ListaPalabras.getItems().clear();
+        operaciones.cargarDatos(lista, ListaPalabras, textoIngresado,textos,IndexPalabra);
+        
          for (int i = 0; i <textos.size(); i++) {
-             aux2= (Text) textoIngresado.getChildren().get(i);
-             boolean subrayado;
-             if (textos.get(i).isUnderline()) {
-                 aux2.setUnderline(true);
-             }else{
-                 aux2.setUnderline(false);
-             }
-             aux2.setFont(textos.get(i).getFont());
+            if (textoIngresado.getChildren().size()!=0) {
+                aux2= (Text) textoIngresado.getChildren().get(i);
+                boolean subrayado;
+                if (textos.get(i).isUnderline()) {
+                    aux2.setUnderline(true);
+                }else{
+                    aux2.setUnderline(false);
+                }
+                aux2.setFont(textos.get(i).getFont());
+            }
             
         }
         
-    
-        Menupalabras.getItems().removeAll(lista);
-        lista.clear();
-        textos.clear();
-        operaciones.cargarDatos(lista, Menupalabras, textoIngresado,textos);
         
-        if (lista.size()!=0) {
-             Menupalabras.setValue((String) lista.get(0)); 
-             IndexPalabra=0;
-             ActionEvent event2 = new ActionEvent();
-             leerPalabra(event2);
-        }
         
     }
     Text PalabraSeleccioanda;
-    int IndexPalabra;
-    @FXML
-    private void leerPalabra(ActionEvent event) {
-        Menupalabras.valueProperty().getValue();
-        if (textos.size()!=0) {
-            String[] indice = Menupalabras.getValue().split("-");
-            IndexPalabra= Integer.parseInt(indice[0]);
-            Text aux = (Text) textoIngresado.getChildren().get(IndexPalabra);
-            PalabraSeleccioanda = aux;
-            if (aux.getFont().getFamily().equals("Segoe Script")) {
-                Cursiva.setImage(CursivaImage);
-                if (aux.getFont().getStyle().equals("Regular")) {
-                    Negrita.setImage(NegritaImage);
-                }else if (aux.getFont().getStyle().equals("Bold")) {
-                    Negrita.setImage(NegritaIP);
-                }
-                if (aux.isUnderline()== true) {
-                    Subrayado.setImage(SubrayadoIP);   
-                }else{
-                    Subrayado.setImage(SubrayadoImage);
-                }
-            }
-            if (aux.getFont().getFamily().equals("Vladimir Script")) {
-                Cursiva.setImage(CursivaIP);
-                Negrita.setImage(NegritaImage);
-                 if (aux.isUnderline()== true) {
-                    Subrayado.setImage(SubrayadoIP);
-                }else{
-                    Subrayado.setImage(SubrayadoImage);
-                }
-            }if (aux.getFont().getFamily().equals("Mistral")) {
-                Cursiva.setImage(CursivaIP);
-                Negrita.setImage(NegritaIP);
-                 if (aux.isUnderline()== true) {
-                    Subrayado.setImage(SubrayadoIP);  
-                }else{
-                    Subrayado.setImage(SubrayadoImage);
-                }   
-            }
-        }  
-    }
+  
     Boolean SubrayadoB=false;
     @FXML
     private void SubrayadoPresionado(MouseEvent event) {
@@ -505,13 +455,6 @@ public class VistaController implements Initializable {
                     aux.setUnderline(false);
                 }
                 
-                
-                
-                
-                
-                
-                
-                
             }
             else if (aux.getFont().getFamily().equals("Mistral")) {
                 Font fuente = Font.font("Segoe Script",FontWeight.BOLD,aux.getFont().getSize());
@@ -526,5 +469,49 @@ public class VistaController implements Initializable {
             }
             
     }
+
+    @FXML
+    private void LeerPalabra(MouseEvent event) {
+        
+        IndexPalabra =ListaPalabras.getSelectionModel().getSelectedIndex();
+        if (textos.size()!=0) {
+            
+            Text aux = (Text) textoIngresado.getChildren().get(IndexPalabra);
+            PalabraSeleccioanda = aux;
+            if (aux.getFont().getFamily().equals("Segoe Script")) {
+                Cursiva.setImage(CursivaImage);
+                if (aux.getFont().getStyle().equals("Regular")) {
+                    Negrita.setImage(NegritaImage);
+                }else if (aux.getFont().getStyle().equals("Bold")) {
+                    Negrita.setImage(NegritaIP);
+                }
+                if (aux.isUnderline()== true) {
+                    Subrayado.setImage(SubrayadoIP);   
+                }else{
+                    Subrayado.setImage(SubrayadoImage);
+                }
+            }
+            if (aux.getFont().getFamily().equals("Vladimir Script")) {
+                Cursiva.setImage(CursivaIP);
+                Negrita.setImage(NegritaImage);
+                 if (aux.isUnderline()== true) {
+                    Subrayado.setImage(SubrayadoIP);
+                }else{
+                    Subrayado.setImage(SubrayadoImage);
+                }
+            }if (aux.getFont().getFamily().equals("Mistral")) {
+                Cursiva.setImage(CursivaIP);
+                Negrita.setImage(NegritaIP);
+                 if (aux.isUnderline()== true) {
+                    Subrayado.setImage(SubrayadoIP);  
+                }else{
+                    Subrayado.setImage(SubrayadoImage);
+                }   
+            }
+        }  
+        
+    }
+
+  
     
 }
