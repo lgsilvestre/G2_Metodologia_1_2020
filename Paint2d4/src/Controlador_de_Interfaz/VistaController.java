@@ -184,7 +184,7 @@ public class VistaController implements Initializable {
     @FXML
     public void invertir(ActionEvent event){
          
-        operaciones.invertirTexto(texto.getText());
+        operaciones.invertirTexto(textoIngresado);
        
        
     }
@@ -473,9 +473,10 @@ public class VistaController implements Initializable {
     @FXML
     private void LeerPalabra(MouseEvent event) {
         
-        IndexPalabra =ListaPalabras.getSelectionModel().getSelectedIndex();
+        //IndexPalabra =ListaPalabras.getSelectionModel().getSelectedIndex();
         if (textos.size()!=0) {
-            
+            String[] indice = ListaPalabras.getSelectionModel().getSelectedItem().split("-");
+            IndexPalabra = Integer.parseInt(indice[0]);
             Text aux = (Text) textoIngresado.getChildren().get(IndexPalabra);
             PalabraSeleccioanda = aux;
             if (aux.getFont().getFamily().equals("Segoe Script")) {

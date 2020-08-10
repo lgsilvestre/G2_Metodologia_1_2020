@@ -72,7 +72,37 @@ public class OptLogicas {
         }
     }
     
-    public void invertirTexto(String text){
+    public void invertirTexto(TextFlow text){
+        
+        int total = text.getChildren().size();
+        
+        ArrayList<Text> listaText = new ArrayList();
+//        Text aux = new Text();
+//        
+//        for (int i = 0; i < total; i++) {
+//            aux = (Text) text.getChildren().get(i);
+//            Text aux2 = new Text();
+//            aux2.setText(aux.getText());
+//            
+//            aux2.setFont(aux.getFont());
+//                 
+//            text.getChildren().add(total-1, aux2);
+//            text.getChildren().remove(i);
+//        }
+        
+        for (int i = 0; i < total; i++) {
+            
+            listaText.add((Text) text.getChildren().get(i));
+            
+        }
+        text.getChildren().clear();
+        
+        for (int i = total; i < 0; i--) {
+            
+            text.getChildren().add(listaText.get(i));
+            
+        }
+
         
     }
     
@@ -96,13 +126,13 @@ public class OptLogicas {
         Text aux = new Text();
         
         for (int i = 0; i < texto.getChildren().size(); i++) {
-            aux= (Text) texto.getChildren().get(i);
+            aux = (Text) texto.getChildren().get(i);
             final int count = i;
                 
             if (aux.getText()!=" ") {
-                ListaPalabras.getItems().add(aux.getText());  
+                ListaPalabras.getItems().add(i+"-"+aux.getText());  
             }
-             textos.add(aux);
+            textos.add(aux);
     
     
         }   
