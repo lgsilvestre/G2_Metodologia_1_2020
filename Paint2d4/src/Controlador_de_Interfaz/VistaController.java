@@ -102,6 +102,7 @@ public class VistaController implements Initializable {
     public Image CursivaImage= new Image("/Imagenes/boton-14.png");
     public Image CursivaIP = new Image("/Imagenes/boton-15.png");
     
+  
     
     @FXML
     private ImageView radar;
@@ -159,9 +160,7 @@ public class VistaController implements Initializable {
             menurotar.setVisible(false);
             darformato=false;
         }
-        
-        
-        
+      
         
         
         
@@ -203,8 +202,7 @@ public class VistaController implements Initializable {
     public void visualizarPuntos(ActionEvent event){
         menuprincipal.setVisible(true);
         
-        
-        
+               
         
         Text aux =new Text(texto.getText());
         X= textoIngresado.getLayoutX();
@@ -348,6 +346,7 @@ public class VistaController implements Initializable {
     }
     Text PalabraSeleccioanda;
   
+
     Boolean SubrayadoB=false;
     @FXML
     private void SubrayadoPresionado(MouseEvent event) {
