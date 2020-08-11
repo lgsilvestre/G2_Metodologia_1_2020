@@ -72,40 +72,78 @@ public class OptLogicas {
         }
     }
     
-    public void invertirTexto(TextFlow text){
+    public void invertirTexto(TextFlow text,TextField texto){
         
         int total = text.getChildren().size();
         
         ArrayList<Text> listaText = new ArrayList();
-//        Text aux = new Text();
-//        
-//        for (int i = 0; i < total; i++) {
-//            aux = (Text) text.getChildren().get(i);
-//            Text aux2 = new Text();
-//            aux2.setText(aux.getText());
-//            
-//            aux2.setFont(aux.getFont());
-//                 
-//            text.getChildren().add(total-1, aux2);
-//            text.getChildren().remove(i);
-//        }
+        Text aux = new Text();
         
         for (int i = 0; i < total; i++) {
+            aux = (Text) text.getChildren().get(i);
+            Text aux2 = new Text();
+            aux2.setText(aux.getText());
             
-            listaText.add((Text) text.getChildren().get(i));
+            aux2.setFont(aux.getFont());
+            
+            listaText.add(aux2);
+            
+//            System.out.println(text.getChildren().get(i));
+            
             
         }
+        String aux3="";
         text.getChildren().clear();
-        
-        for (int i = total; i < 0; i--) {
-            
+        for (int i = listaText.size()-1; i >=0 ; i--) {
+            aux3= aux3 + listaText.get(i).getText();
             text.getChildren().add(listaText.get(i));
-            
         }
+        System.out.println(aux3);
+        texto.clear();
+        texto.setText(aux3);
+
 
         
     }
-    
+    public void agregarSimbolo(String simbolo,TextField texto,TextFlow text){
+        
+       
+       int indexseleccionado=texto.getSelection().getStart();
+       Font fuente = Font.font("Segoe Script",30);
+       String PalabraAux="";
+        System.out.println(indexseleccionado+" "+texto.getText().length());
+        System.out.println(simbolo.charAt(0));
+        if (indexseleccionado!=texto.getText().length()) {
+            for (int i = 0; i < texto.getText().length(); i++) {
+                if (i==indexseleccionado) {
+                    
+                    PalabraAux= PalabraAux+""+simbolo.charAt(0)+""+simbolo.charAt(1)+texto.getText().charAt(i);
+                    
+                }else{
+                     PalabraAux= PalabraAux+""+texto.getText().charAt(i);
+                }
+            }
+        }else{
+            PalabraAux= texto.getText()+simbolo.charAt(0)+""+simbolo.charAt(1);
+        }
+        texto.clear();
+        texto.setText(PalabraAux);
+        texto.selectRange(indexseleccionado,indexseleccionado);
+       
+//       
+//       String aux = texto.getText();
+//       
+//       Text simboloaux = new Text(simbolo);
+//       simboloaux.setFont(fuente);
+//       text.getChildren().add(simboloaux);
+//       aux= aux+simbolo;
+//       texto.clear();
+//       texto.setText(aux);
+//       
+
+       
+        
+    }
     public String rotar(String valor,int rotacion){
         int val =Integer.parseInt(valor);
         val+=rotacion;
@@ -136,5 +174,74 @@ public class OptLogicas {
     
     
         }   
+    }
+    public void Leertexto(TextFlow textoIngresado,TextField texto,ArrayList<Text> textos,ListView<String> ListaPalabras,ObservableList lista,int IndexPalabra){
+        textoIngresado.setMaxSize(950, 200);
+        textoIngresado.setLayoutX(40);
+        textoIngresado.setLayoutY(40);
+        textoIngresado.getChildren().clear();
+        
+        String [] aux = texto.getText().split(" ");
+        
+        for (int i = 0; i < aux.length; i++) {
+            if (aux[i]!=" ") {
+                Text texto1 = new Text(aux[i]);
+                Font fuente = Font.font("Segoe Script",30);
+                texto1.setFont(fuente);
+                Text texto2 = new Text(" ");
+                texto2.setFont(fuente);
+                 textoIngresado.getChildren().add(texto1);
+                  //textoIngresado.getChildren().add(texto2);
+            }else{
+                Text texto1 = new Text(" ");
+                Font fuente = Font.font("Segoe Script",30);
+                texto1.setFont(fuente);
+                
+                textoIngresado.getChildren().add(texto1);
+               
+            }
+        } 
+        Text aux1 = new Text();
+        for (int j = 0; j < textoIngresado.getChildren().size(); j++) {
+                aux1= (Text) textoIngresado.getChildren().get(j);
+                if (aux1.getText()!=" ") {
+                    Text texto2 = new Text(" ");
+                    Font fuente = Font.font("Segoe Script",30);
+                    texto2.setFont(fuente);
+                    textoIngresado.getChildren().add(j+1, texto2);
+                }
+                
+        }
+        textoIngresado.getChildren().remove(textoIngresado.getChildren().size()-1);
+            
+        for (int j = 0; j < textoIngresado.getChildren().size(); j++) {
+                aux1= (Text) textoIngresado.getChildren().get(j);
+                
+                if (aux1.getText().isEmpty()) {
+                    textoIngresado.getChildren().remove(j);
+                
+                }
+        }    
+        
+        Text aux2 = new Text();
+        for (int i = 0; i <textos.size(); i++) {
+            if (textoIngresado.getChildren().size()!=0) {
+                aux2= (Text) textoIngresado.getChildren().get(i);
+                boolean subrayado;
+                if (textos.get(i).isUnderline()) {
+                    aux2.setUnderline(true);
+                }else{
+                    aux2.setUnderline(false);
+                }
+                aux2.setFont(textos.get(i).getFont());
+            }
+            
+        }
+        
+        textos.clear();
+        ListaPalabras.getItems().clear();
+        cargarDatos(lista, ListaPalabras, textoIngresado,textos,IndexPalabra);
+        
+         
     }
 }

@@ -184,7 +184,7 @@ public class VistaController implements Initializable {
     @FXML
     public void invertir(ActionEvent event){
          
-        operaciones.invertirTexto(textoIngresado);
+        operaciones.invertirTexto(textoIngresado,texto);
        
        
     }
@@ -218,7 +218,7 @@ public class VistaController implements Initializable {
             textoIngresado.setLayoutY(Y);
             textoIngresado.setRotate(rota);
             puntocontrol=true;
-            Menupalabras.getItems().removeAll(lista);
+            
             lista.clear();
             textos.clear();
             //operaciones.cargarDatos(lista, Menupalabras, textoIngresado,textos);
@@ -233,7 +233,7 @@ public class VistaController implements Initializable {
                     textoIngresado.getChildren().remove(aux2);
                 }
             }
-            Menupalabras.getItems().removeAll(lista);
+            
             lista.clear();
             textos.clear();
            operaciones.cargarDatos(lista, ListaPalabras, textoIngresado,textos,IndexPalabra);
@@ -322,14 +322,7 @@ public class VistaController implements Initializable {
        
         
        
-        
-    
-        
-        textos.clear();
-        ListaPalabras.getItems().clear();
-        operaciones.cargarDatos(lista, ListaPalabras, textoIngresado,textos,IndexPalabra);
-        
-         for (int i = 0; i <textos.size(); i++) {
+                 for (int i = 0; i <textos.size(); i++) {
             if (textoIngresado.getChildren().size()!=0) {
                 aux2= (Text) textoIngresado.getChildren().get(i);
                 boolean subrayado;
@@ -342,6 +335,13 @@ public class VistaController implements Initializable {
             }
             
         }
+    
+        
+        textos.clear();
+        ListaPalabras.getItems().clear();
+        operaciones.cargarDatos(lista, ListaPalabras, textoIngresado,textos,IndexPalabra);
+        
+
         
         
         
@@ -351,25 +351,29 @@ public class VistaController implements Initializable {
     Boolean SubrayadoB=false;
     @FXML
     private void SubrayadoPresionado(MouseEvent event) {
-        if (SubrayadoB==false) {
-            SubrayadoB=true;
-            Subrayado.setImage(SubrayadoIP);
-            Text aux = new Text();
-            aux= (Text) textoIngresado.getChildren().get(IndexPalabra);
-            aux.setUnderline(true);
-        }else{
-            PalabraSeleccioanda.setUnderline(false);
-            SubrayadoB=false;
-            Subrayado.setImage(SubrayadoImage);
-            Text aux = new Text();
-            aux= (Text) textoIngresado.getChildren().get(IndexPalabra);
-            aux.setUnderline(false);
+        if (IndexPalabra<textoIngresado.getChildren().size()) {
+                if (SubrayadoB==false) {
+                SubrayadoB=true;
+                Subrayado.setImage(SubrayadoIP);
+                Text aux = new Text();
+                aux= (Text) textoIngresado.getChildren().get(IndexPalabra);
+                aux.setUnderline(true);
+            }else{
+                PalabraSeleccioanda.setUnderline(false);
+                SubrayadoB=false;
+                Subrayado.setImage(SubrayadoImage);
+                Text aux = new Text();
+                aux= (Text) textoIngresado.getChildren().get(IndexPalabra);
+                aux.setUnderline(false);
+            }
         }
        
     }
     Boolean NegritaB =false;
     @FXML
     private void NegritaPresionado(MouseEvent event) {
+        
+        if (IndexPalabra<textoIngresado.getChildren().size()) {
             Text aux = new Text();
             aux= (Text) textoIngresado.getChildren().get(IndexPalabra);
              boolean subrayado;
@@ -410,10 +414,12 @@ public class VistaController implements Initializable {
                 Negrita.setImage(NegritaImage);
                 
             }     
+        }
     }
 
     @FXML
     private void CursivaPresionado(MouseEvent event) {
+        if (IndexPalabra<textoIngresado.getChildren().size()) {
         Text aux = new Text();
         aux= (Text) textoIngresado.getChildren().get(IndexPalabra);
         boolean subrayado;
@@ -467,6 +473,7 @@ public class VistaController implements Initializable {
                 }
                 
             }
+        }
             
     }
 
@@ -475,43 +482,126 @@ public class VistaController implements Initializable {
         
         //IndexPalabra =ListaPalabras.getSelectionModel().getSelectedIndex();
         if (textos.size()!=0) {
-            String[] indice = ListaPalabras.getSelectionModel().getSelectedItem().split("-");
-            IndexPalabra = Integer.parseInt(indice[0]);
-            Text aux = (Text) textoIngresado.getChildren().get(IndexPalabra);
-            PalabraSeleccioanda = aux;
-            if (aux.getFont().getFamily().equals("Segoe Script")) {
-                Cursiva.setImage(CursivaImage);
-                if (aux.getFont().getStyle().equals("Regular")) {
+            if (ListaPalabras.getSelectionModel().getSelectedItem()!=null) {
+                 String[] indice = ListaPalabras.getSelectionModel().getSelectedItem().split("-");
+                 IndexPalabra = Integer.parseInt(indice[0]);
+                  
+                Text aux = (Text) textoIngresado.getChildren().get(IndexPalabra);
+                PalabraSeleccioanda = aux;
+                if (aux.getFont().getFamily().equals("Segoe Script")) {
+                    Cursiva.setImage(CursivaImage);
+                    if (aux.getFont().getStyle().equals("Regular")) {
+                        Negrita.setImage(NegritaImage);
+                    }else if (aux.getFont().getStyle().equals("Bold")) {
+                        Negrita.setImage(NegritaIP);
+                    }
+                    if (aux.isUnderline()== true) {
+                        Subrayado.setImage(SubrayadoIP);   
+                    }else{
+                        Subrayado.setImage(SubrayadoImage);
+                    }
+                }
+                if (aux.getFont().getFamily().equals("Vladimir Script")) {
+                    Cursiva.setImage(CursivaIP);
                     Negrita.setImage(NegritaImage);
-                }else if (aux.getFont().getStyle().equals("Bold")) {
+                     if (aux.isUnderline()== true) {
+                        Subrayado.setImage(SubrayadoIP);
+                    }else{
+                        Subrayado.setImage(SubrayadoImage);
+                    }
+                }if (aux.getFont().getFamily().equals("Mistral")) {
+                    Cursiva.setImage(CursivaIP);
                     Negrita.setImage(NegritaIP);
-                }
-                if (aux.isUnderline()== true) {
-                    Subrayado.setImage(SubrayadoIP);   
-                }else{
-                    Subrayado.setImage(SubrayadoImage);
+                     if (aux.isUnderline()== true) {
+                        Subrayado.setImage(SubrayadoIP);  
+                    }else{
+                        Subrayado.setImage(SubrayadoImage);
+                    }   
                 }
             }
-            if (aux.getFont().getFamily().equals("Vladimir Script")) {
-                Cursiva.setImage(CursivaIP);
-                Negrita.setImage(NegritaImage);
-                 if (aux.isUnderline()== true) {
-                    Subrayado.setImage(SubrayadoIP);
-                }else{
-                    Subrayado.setImage(SubrayadoImage);
-                }
-            }if (aux.getFont().getFamily().equals("Mistral")) {
-                Cursiva.setImage(CursivaIP);
-                Negrita.setImage(NegritaIP);
-                 if (aux.isUnderline()== true) {
-                    Subrayado.setImage(SubrayadoIP);  
-                }else{
-                    Subrayado.setImage(SubrayadoImage);
-                }   
-            }
+           
+           
         }  
         
     }
+
+   
+
+    
+    
+
+    @FXML
+    private void dobleizquierda(MouseEvent event) {
+        operaciones.agregarSimbolo("❛❛", texto,textoIngresado);
+        operaciones.Leertexto(textoIngresado, texto, textos, ListaPalabras, lista, IndexPalabra);
+        textos.clear();
+        ListaPalabras.getItems().clear();
+        operaciones.cargarDatos(lista, ListaPalabras, textoIngresado,textos,IndexPalabra);
+       
+    }
+
+    @FXML
+    private void doblederecha(MouseEvent event) {
+         operaciones.agregarSimbolo("❜❜", texto,textoIngresado);
+        operaciones.Leertexto(textoIngresado, texto, textos, ListaPalabras, lista, IndexPalabra);
+        textos.clear();
+        ListaPalabras.getItems().clear();
+        operaciones.cargarDatos(lista, ListaPalabras, textoIngresado,textos,IndexPalabra);
+       
+    }
+
+    @FXML
+    private void simpleizquierda(MouseEvent event) {
+        operaciones.agregarSimbolo("❛", texto,textoIngresado);
+        operaciones.Leertexto(textoIngresado, texto, textos, ListaPalabras, lista, IndexPalabra);
+        textos.clear();
+        ListaPalabras.getItems().clear();
+        operaciones.cargarDatos(lista, ListaPalabras, textoIngresado,textos,IndexPalabra);
+       
+    }
+
+    @FXML
+    private void simplederecha(MouseEvent event) {
+        operaciones.agregarSimbolo("❜", texto,textoIngresado);
+       operaciones.Leertexto(textoIngresado, texto, textos, ListaPalabras, lista, IndexPalabra);
+        textos.clear();
+        ListaPalabras.getItems().clear();
+        operaciones.cargarDatos(lista, ListaPalabras, textoIngresado,textos,IndexPalabra);
+       
+    }
+
+    @FXML
+    private void trespuntos(MouseEvent event) {
+        operaciones.agregarSimbolo("...", texto,textoIngresado);
+       operaciones.Leertexto(textoIngresado, texto, textos, ListaPalabras, lista, IndexPalabra);
+        textos.clear();
+        ListaPalabras.getItems().clear();
+        operaciones.cargarDatos(lista, ListaPalabras, textoIngresado,textos,IndexPalabra);
+       
+    }
+
+    @FXML
+    private void mayoresizquierda(MouseEvent event) {
+        operaciones.agregarSimbolo("<<", texto,textoIngresado);
+        operaciones.Leertexto(textoIngresado, texto, textos, ListaPalabras, lista, IndexPalabra);
+        textos.clear();
+        ListaPalabras.getItems().clear();
+        operaciones.cargarDatos(lista, ListaPalabras, textoIngresado,textos,IndexPalabra);
+       
+    }
+
+    @FXML
+    private void mayoresderecha(MouseEvent event) {
+          
+        operaciones.agregarSimbolo(">>", texto,textoIngresado);
+        operaciones.Leertexto(textoIngresado, texto, textos, ListaPalabras, lista, IndexPalabra);
+        textos.clear();
+        ListaPalabras.getItems().clear();
+        operaciones.cargarDatos(lista, ListaPalabras, textoIngresado,textos,IndexPalabra);
+       
+    }
+        
+    
 
   
     
