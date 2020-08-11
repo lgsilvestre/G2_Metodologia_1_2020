@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -121,6 +122,20 @@
                         <ImageView fx:id="Subrayado" fitHeight="70.0" fitWidth="80.0" layoutX="170.0" layoutY="93.0" onMouseClicked="#SubrayadoPresionado" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fx:id="Negrita" fitHeight="70.0" fitWidth="80.0" layoutY="93.0" onMouseClicked="#NegritaPresionado" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fx:id="Cursiva" fitHeight="70.0" fitWidth="80.0" layoutX="90.0" layoutY="93.0" onMouseClicked="#CursivaPresionado" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="aumentar" fitHeight="65.0" fitWidth="80.0" layoutX="14.0" layoutY="34.0" onMouseClicked="#aumentarTamanio" pickOnBounds="true">
+                           <image>
+                              <Image url="@../Imagenes/boton-17.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="disminuir" fitHeight="65.0" fitWidth="80.0" layoutX="148.0" layoutY="34.0" onMouseClicked="#disminuirTamanio" pickOnBounds="true">
+                           <image>
+                              <Image url="@../Imagenes/boton-16.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="tamanio" alignment="CENTER" layoutX="106.0" layoutY="52.0" prefHeight="37.0" prefWidth="40.0" text="100" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Consolas" size="18.0" />
+                           </font></Label>
                      </children>
                   </Pane>
                   <ListView fx:id="ListaPalabras" onMouseClicked="#LeerPalabra" prefHeight="111.0" prefWidth="249.0" />

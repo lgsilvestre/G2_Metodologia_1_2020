@@ -21,6 +21,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -110,6 +111,12 @@ public class VistaController implements Initializable {
     @FXML
     private ListView<String> ListaPalabras;
     int IndexPalabra;
+    @FXML
+    private Label tamanio;
+    @FXML
+    private ImageView aumentar;
+    @FXML
+    private ImageView disminuir;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO    
@@ -120,7 +127,9 @@ public class VistaController implements Initializable {
         Y= textoIngresado.getLayoutY();
         rota= textoIngresado.getRotate();
         canvasPane.getChildren().add(textoIngresado);
-        
+        disminuir.setVisible(false);
+        aumentar.setVisible(false);
+        tamanio.setVisible(false);
         
     }   
     @FXML
@@ -482,12 +491,16 @@ public class VistaController implements Initializable {
         
         //IndexPalabra =ListaPalabras.getSelectionModel().getSelectedIndex();
         if (textos.size()!=0) {
+            
             if (ListaPalabras.getSelectionModel().getSelectedItem()!=null) {
                  String[] indice = ListaPalabras.getSelectionModel().getSelectedItem().split("-");
                  IndexPalabra = Integer.parseInt(indice[0]);
-                  
+                aumentar.setVisible(true);
+                disminuir.setVisible(true);
+                tamanio.setVisible(true);
                 Text aux = (Text) textoIngresado.getChildren().get(IndexPalabra);
                 PalabraSeleccioanda = aux;
+                tamanio.setText(""+aux.getFont().getSize());
                 if (aux.getFont().getFamily().equals("Segoe Script")) {
                     Cursiva.setImage(CursivaImage);
                     if (aux.getFont().getStyle().equals("Regular")) {
@@ -599,6 +612,71 @@ public class VistaController implements Initializable {
         ListaPalabras.getItems().clear();
         operaciones.cargarDatos(lista, ListaPalabras, textoIngresado,textos,IndexPalabra);
        
+    }
+
+    @FXML
+    private void aumentarTamanio(MouseEvent event) {
+        if (textos.size()!=0) {
+            
+            if (ListaPalabras.getSelectionModel().getSelectedItem()!=null) {
+                System.out.println("ss");
+                String[] indice = ListaPalabras.getSelectionModel().getSelectedItem().split("-");
+                IndexPalabra = Integer.parseInt(indice[0]);
+                aumentar.setVisible(true);
+                disminuir.setVisible(true);
+                tamanio.setVisible(true);
+                Text aux = (Text) textoIngresado.getChildren().get(IndexPalabra);
+                if (!aux.getFont().getFamily().equals("Segoe Script")) {
+                    Font fuente = Font.font(aux.getFont().getFamily(),aux.getFont().getSize()+2);
+                    tamanio.setText(""+aux.getFont().getSize());
+                    aux.setFont(fuente);
+                }else{
+                    if (aux.getFont().getStyle().equals("Bold")) {
+                        Font fuente = Font.font(aux.getFont().getFamily(),FontWeight.BOLD,aux.getFont().getSize()+2);
+                        tamanio.setText(""+aux.getFont().getSize());
+                        aux.setFont(fuente);
+                    }else{
+                         Font fuente = Font.font(aux.getFont().getFamily(),aux.getFont().getSize()+2);
+                        tamanio.setText(""+aux.getFont().getSize());
+                        aux.setFont(fuente);
+                    }
+                }
+            }
+        }
+        
+    }
+
+    @FXML
+    private void disminuirTamanio(MouseEvent event) {
+        if (textos.size()!=0) {
+            
+            if (ListaPalabras.getSelectionModel().getSelectedItem()!=null) {
+                System.out.println("ss");
+                String[] indice = ListaPalabras.getSelectionModel().getSelectedItem().split("-");
+                IndexPalabra = Integer.parseInt(indice[0]);
+                aumentar.setVisible(true);
+                disminuir.setVisible(true);
+                tamanio.setVisible(true);
+                Text aux = (Text) textoIngresado.getChildren().get(IndexPalabra);
+                if (!aux.getFont().getFamily().equals("Segoe Script")) {
+                    Font fuente = Font.font(aux.getFont().getFamily(),aux.getFont().getSize()-2);
+                    tamanio.setText(""+aux.getFont().getSize());
+                    aux.setFont(fuente);
+                }else{
+                    if (aux.getFont().getStyle().equals("Bold")) {
+                        Font fuente = Font.font(aux.getFont().getFamily(),FontWeight.BOLD,aux.getFont().getSize()-2);
+                        tamanio.setText(""+aux.getFont().getSize());
+                        aux.setFont(fuente);
+                    }else{
+                         Font fuente = Font.font(aux.getFont().getFamily(),aux.getFont().getSize()-2);
+                        tamanio.setText(""+aux.getFont().getSize());
+                        aux.setFont(fuente);
+                    }
+                }
+                
+                 
+            }
+        }
     }
         
     
