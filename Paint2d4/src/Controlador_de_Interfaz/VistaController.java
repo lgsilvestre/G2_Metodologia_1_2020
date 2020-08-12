@@ -117,6 +117,8 @@ public class VistaController implements Initializable {
     private ImageView aumentar;
     @FXML
     private ImageView disminuir;
+    @FXML
+    private Button cerrar;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO    
@@ -204,9 +206,7 @@ public class VistaController implements Initializable {
     
     @FXML
     public void trasladarTexto(MouseEvent event){
-        
         if (mover) {
-            
             textoIngresado.setLayoutX(event.getX());
             textoIngresado.setLayoutY(event.getY());    
         }     
@@ -607,6 +607,11 @@ public class VistaController implements Initializable {
                  
             }
         }
+    }
+
+    @FXML
+    private void salir(ActionEvent event) {
+        System.exit(0);
     }
         
     
