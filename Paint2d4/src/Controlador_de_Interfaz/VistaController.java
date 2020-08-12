@@ -192,6 +192,10 @@ public class VistaController implements Initializable {
     
     @FXML
     public void invertir(ActionEvent event){
+        
+        if (puntocontrol) {
+            visualizarPuntos(event);
+        }
          
         operaciones.invertirTexto(textoIngresado,texto);
        
@@ -208,13 +212,11 @@ public class VistaController implements Initializable {
         }     
    }
     TextFlow copiaseguridad = new TextFlow();
+    
     @FXML
     public void visualizarPuntos(ActionEvent event){
         menuprincipal.setVisible(true);
-        
-        
-        
-        
+
         Text aux =new Text(texto.getText());
         X= textoIngresado.getLayoutX();
         Y= textoIngresado.getLayoutY();
@@ -279,82 +281,10 @@ public class VistaController implements Initializable {
 
     @FXML
     private void leertexto(KeyEvent event) {
-        textoIngresado.setMaxSize(950, 200);
-        textoIngresado.setLayoutX(40);
-        textoIngresado.setLayoutY(40);
-        textoIngresado.getChildren().clear();
         
-        String [] aux = texto.getText().split(" ");
-        
-        for (int i = 0; i < aux.length; i++) {
-            if (aux[i]!=" ") {
-                Text texto1 = new Text(aux[i]);
-                Font fuente = Font.font("Segoe Script",30);
-                texto1.setFont(fuente);
-                Text texto2 = new Text(" ");
-                texto2.setFont(fuente);
-                 textoIngresado.getChildren().add(texto1);
-                  //textoIngresado.getChildren().add(texto2);
-            }else{
-                Text texto1 = new Text(" ");
-                Font fuente = Font.font("Segoe Script",30);
-                texto1.setFont(fuente);
-                
-                textoIngresado.getChildren().add(texto1);
-               
-            }
-        } 
-        Text aux1 = new Text();
-        for (int j = 0; j < textoIngresado.getChildren().size(); j++) {
-                aux1= (Text) textoIngresado.getChildren().get(j);
-                if (aux1.getText()!=" ") {
-                    Text texto2 = new Text(" ");
-                    Font fuente = Font.font("Segoe Script",30);
-                    texto2.setFont(fuente);
-                    textoIngresado.getChildren().add(j+1, texto2);
-                }
-                
-        }
-        textoIngresado.getChildren().remove(textoIngresado.getChildren().size()-1);
-            
-        for (int j = 0; j < textoIngresado.getChildren().size(); j++) {
-                aux1= (Text) textoIngresado.getChildren().get(j);
-                
-                if (aux1.getText().isEmpty()) {
-                    textoIngresado.getChildren().remove(j);
-                
-                }
-        }    
-        
-        Text aux2 = new Text();
-        
-       
-        
-       
-                 for (int i = 0; i <textos.size(); i++) {
-            if (textoIngresado.getChildren().size()!=0) {
-                aux2= (Text) textoIngresado.getChildren().get(i);
-                boolean subrayado;
-                if (textos.get(i).isUnderline()) {
-                    aux2.setUnderline(true);
-                }else{
-                    aux2.setUnderline(false);
-                }
-                aux2.setFont(textos.get(i).getFont());
-            }
-            
-        }
-    
-        
-        textos.clear();
-        ListaPalabras.getItems().clear();
-        operaciones.cargarDatos(lista, ListaPalabras, textoIngresado,textos,IndexPalabra);
-        
-
-        
-        
-        
+        operaciones.Leertexto(textoIngresado, texto, textos, ListaPalabras, lista, IndexPalabra);
     }
+    
     Text PalabraSeleccioanda;
   
     Boolean SubrayadoB=false;
@@ -545,7 +475,7 @@ public class VistaController implements Initializable {
 
     @FXML
     private void dobleizquierda(MouseEvent event) {
-        operaciones.agregarSimbolo("❛❛", texto,textoIngresado);
+        operaciones.agregarSimbolo("\"", texto,textoIngresado);
         operaciones.Leertexto(textoIngresado, texto, textos, ListaPalabras, lista, IndexPalabra);
         textos.clear();
         ListaPalabras.getItems().clear();
@@ -555,7 +485,7 @@ public class VistaController implements Initializable {
 
     @FXML
     private void doblederecha(MouseEvent event) {
-         operaciones.agregarSimbolo("❜❜", texto,textoIngresado);
+         operaciones.agregarSimbolo("\"", texto,textoIngresado);
         operaciones.Leertexto(textoIngresado, texto, textos, ListaPalabras, lista, IndexPalabra);
         textos.clear();
         ListaPalabras.getItems().clear();
@@ -565,7 +495,7 @@ public class VistaController implements Initializable {
 
     @FXML
     private void simpleizquierda(MouseEvent event) {
-        operaciones.agregarSimbolo("❛", texto,textoIngresado);
+        operaciones.agregarSimbolo("'", texto,textoIngresado);
         operaciones.Leertexto(textoIngresado, texto, textos, ListaPalabras, lista, IndexPalabra);
         textos.clear();
         ListaPalabras.getItems().clear();
@@ -575,7 +505,7 @@ public class VistaController implements Initializable {
 
     @FXML
     private void simplederecha(MouseEvent event) {
-        operaciones.agregarSimbolo("❜", texto,textoIngresado);
+        operaciones.agregarSimbolo("'", texto,textoIngresado);
        operaciones.Leertexto(textoIngresado, texto, textos, ListaPalabras, lista, IndexPalabra);
         textos.clear();
         ListaPalabras.getItems().clear();

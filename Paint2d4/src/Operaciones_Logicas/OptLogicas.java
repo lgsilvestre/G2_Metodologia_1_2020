@@ -5,27 +5,13 @@
  */
 package Operaciones_Logicas;
 
-import com.sun.javafx.css.converters.FontConverter;
 import java.util.ArrayList;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.AccessibleRole;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
@@ -107,43 +93,32 @@ public class OptLogicas {
     }
     public void agregarSimbolo(String simbolo,TextField texto,TextFlow text){
         
-       
-       int indexseleccionado=texto.getSelection().getStart();
-       Font fuente = Font.font("Segoe Script",30);
-       String PalabraAux="";
+        
+        int indexseleccionado=texto.getSelection().getStart();
+        Font fuente = Font.font("Segoe Script",30);
+        String PalabraAux="";
         System.out.println(indexseleccionado+" "+texto.getText().length());
         System.out.println(simbolo.charAt(0));
         if (indexseleccionado!=texto.getText().length()) {
             for (int i = 0; i < texto.getText().length(); i++) {
                 if (i==indexseleccionado) {
                     
-                    PalabraAux= PalabraAux+""+simbolo.charAt(0)+""+simbolo.charAt(1)+texto.getText().charAt(i);
+                    
+                    PalabraAux= PalabraAux+""+simbolo+texto.getText().charAt(i);
                     
                 }else{
                      PalabraAux= PalabraAux+""+texto.getText().charAt(i);
                 }
             }
         }else{
-            PalabraAux= texto.getText()+simbolo.charAt(0)+""+simbolo.charAt(1);
+            PalabraAux= texto.getText()+simbolo;
         }
         texto.clear();
         texto.setText(PalabraAux);
         texto.selectRange(indexseleccionado,indexseleccionado);
-       
-//       
-//       String aux = texto.getText();
-//       
-//       Text simboloaux = new Text(simbolo);
-//       simboloaux.setFont(fuente);
-//       text.getChildren().add(simboloaux);
-//       aux= aux+simbolo;
-//       texto.clear();
-//       texto.setText(aux);
-//       
 
-       
-        
     }
+    
     public String rotar(String valor,int rotacion){
         int val =Integer.parseInt(valor);
         val+=rotacion;
@@ -155,11 +130,7 @@ public class OptLogicas {
         valor =Integer.toString(val);
         return valor;
     }
-    @FunctionalInterface
-    interface  IFunc{
-        void display();
-    }
-    
+
     public void cargarDatos(ObservableList lista,ListView<String> ListaPalabras,TextFlow texto,ArrayList<Text> textos,int indicePalabra){
         Text aux = new Text();
         
@@ -225,7 +196,8 @@ public class OptLogicas {
         
         Text aux2 = new Text();
         for (int i = 0; i <textos.size(); i++) {
-            if (textoIngresado.getChildren().size()!=0) {
+            try {
+                if (textoIngresado.getChildren().size()!=0) {
                 aux2= (Text) textoIngresado.getChildren().get(i);
                 boolean subrayado;
                 if (textos.get(i).isUnderline()) {
@@ -235,6 +207,10 @@ public class OptLogicas {
                 }
                 aux2.setFont(textos.get(i).getFont());
             }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            
             
         }
         
