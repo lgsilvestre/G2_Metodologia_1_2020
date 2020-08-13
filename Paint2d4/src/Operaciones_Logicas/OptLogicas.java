@@ -16,42 +16,43 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
 /**
- *
- * @author Nicolas
+ * Aqui es donde se haran todas las operaciones que no tienen relacion con la interfaz
+ * de manera directa.
+ * @author Rodrigo
+ * @author Nicolas M 
+ * @author Pablo
+ * @author Fernanda
+ * @author Felipe
+ * @author Nicolas R
  */
 public class OptLogicas {
-     public ArrayList<String> palabras = new ArrayList<>();
-     public ArrayList<String> list = new ArrayList<>();
-     
-     public String texto2 ="";
-     
-     public void separarTexto(String text,TextFlow aux2,ArrayList<Text> textos,Pane Canvas){
-         TextFlow aux= new TextFlow();
-         
-        Text auxpalabra = new Text();
-         for (int i = 0; i < aux2.getChildren().size(); i++) {
-             auxpalabra = (Text) aux2.getChildren().get(i);
-             
-             if (auxpalabra.getText()!=" ") {
-                Text text2 = new Text("*");
-                text2.setFill(Color.web("#EA4335")); 
-                text2.setFont(auxpalabra.getFont());
-                aux2.getChildren().add(i, text2);
-                i++;
-                Text text4 = new Text("*");
-                text4.setFill(Color.web("#EA4335")); 
-                text4.setFont(auxpalabra.getFont());
-                aux2.getChildren().add(i+1, text4);
-                i++;
+    public ArrayList<String> palabras = new ArrayList<>();
+    public ArrayList<String> list = new ArrayList<>();
 
+    public String texto2 ="";
 
-             }else{
+    public void separarTexto(String text,TextFlow aux2,ArrayList<Text> textos,Pane Canvas){
+        TextFlow aux= new TextFlow();
 
-             }
-             
-         }
+       Text auxpalabra = new Text();
+        for (int i = 0; i < aux2.getChildren().size(); i++) {
+            auxpalabra = (Text) aux2.getChildren().get(i);
 
+            if (auxpalabra.getText()!=" ") {
+               Text text2 = new Text("*");
+               text2.setFill(Color.web("#EA4335")); 
+               text2.setFont(auxpalabra.getFont());
+               aux2.getChildren().add(i, text2);
+               i++;
+               Text text4 = new Text("*");
+               text4.setFill(Color.web("#EA4335")); 
+               text4.setFont(auxpalabra.getFont());
+               aux2.getChildren().add(i+1, text4);
+               i++;
+            }
+        }
     }
+    
     public void imprimir(){
         for (int i = 0; i < palabras.size(); i++) {
             System.out.println(palabras.get(i));
@@ -69,14 +70,8 @@ public class OptLogicas {
             aux = (Text) text.getChildren().get(i);
             Text aux2 = new Text();
             aux2.setText(aux.getText());
-            
             aux2.setFont(aux.getFont());
-            
             listaText.add(aux2);
-            
-//            System.out.println(text.getChildren().get(i));
-            
-            
         }
         String aux3="";
         text.getChildren().clear();
@@ -86,14 +81,17 @@ public class OptLogicas {
         }
         System.out.println(aux3);
         texto.clear();
-        texto.setText(aux3);
-
-
-        
+        texto.setText(aux3);    
     }
+    
+    /**
+     * al dentro de la interfaz presionar algun caracter especial, aqui en donde se
+     * ingresara dentro de la frase, para luego ser mostrada
+     * @param simbolo caracter a ingresar
+     * @param texto el texto completo
+     * @param text 
+     */
     public void agregarSimbolo(String simbolo,TextField texto,TextFlow text){
-        
-        
         int indexseleccionado=texto.getSelection().getStart();
         Font fuente = Font.font("Segoe Script",30);
         String PalabraAux="";
@@ -102,10 +100,7 @@ public class OptLogicas {
         if (indexseleccionado!=texto.getText().length()) {
             for (int i = 0; i < texto.getText().length(); i++) {
                 if (i==indexseleccionado) {
-                    
-                    
-                    PalabraAux= PalabraAux+""+simbolo+texto.getText().charAt(i);
-                    
+                    PalabraAux= PalabraAux+""+simbolo+texto.getText().charAt(i);                  
                 }else{
                      PalabraAux= PalabraAux+""+texto.getText().charAt(i);
                 }
@@ -116,9 +111,15 @@ public class OptLogicas {
         texto.clear();
         texto.setText(PalabraAux);
         texto.selectRange(indexseleccionado,indexseleccionado);
-
     }
     
+    /**
+     * esto mostrara en el redar del dragon de la interfaz, el angulo que tiene en 
+     * ese instante la palabra.
+     * @param valor el valor que esta en ese momento dentro del radar
+     * @param rotacion lo que se agregara o disminuira
+     * @return 
+     */
     public String rotar(String valor,int rotacion){
         int val =Integer.parseInt(valor);
         val+=rotacion;
@@ -131,6 +132,14 @@ public class OptLogicas {
         return valor;
     }
 
+    /**
+     * 
+     * @param lista
+     * @param ListaPalabras
+     * @param texto
+     * @param textos
+     * @param indicePalabra 
+     */
     public void cargarDatos(ObservableList lista,ListView<String> ListaPalabras,TextFlow texto,ArrayList<Text> textos,int indicePalabra){
         Text aux = new Text();
         
@@ -142,10 +151,18 @@ public class OptLogicas {
                 ListaPalabras.getItems().add(i+"-"+aux.getText());  
             }
             textos.add(aux);
-    
-    
         }   
     }
+    
+    /**
+     * 
+     * @param textoIngresado
+     * @param texto
+     * @param textos
+     * @param ListaPalabras
+     * @param lista
+     * @param IndexPalabra 
+     */
     public void Leertexto(TextFlow textoIngresado,TextField texto,ArrayList<Text> textos,ListView<String> ListaPalabras,ObservableList lista,int IndexPalabra){
         textoIngresado.setMaxSize(950, 200);
         textoIngresado.setLayoutX(40);
@@ -162,14 +179,11 @@ public class OptLogicas {
                 Text texto2 = new Text(" ");
                 texto2.setFont(fuente);
                  textoIngresado.getChildren().add(texto1);
-                  //textoIngresado.getChildren().add(texto2);
             }else{
                 Text texto1 = new Text(" ");
                 Font fuente = Font.font("Segoe Script",30);
                 texto1.setFont(fuente);
-                
-                textoIngresado.getChildren().add(texto1);
-               
+                textoIngresado.getChildren().add(texto1); 
             }
         } 
         Text aux1 = new Text();
@@ -180,20 +194,16 @@ public class OptLogicas {
                     Font fuente = Font.font("Segoe Script",30);
                     texto2.setFont(fuente);
                     textoIngresado.getChildren().add(j+1, texto2);
-                }
-                
+                }        
         }
         textoIngresado.getChildren().remove(textoIngresado.getChildren().size()-1);
             
         for (int j = 0; j < textoIngresado.getChildren().size(); j++) {
                 aux1= (Text) textoIngresado.getChildren().get(j);
-                
                 if (aux1.getText().isEmpty()) {
                     textoIngresado.getChildren().remove(j);
-                
                 }
-        }    
-        
+        }   
         Text aux2 = new Text();
         for (int i = 0; i <textos.size(); i++) {
             try {
@@ -209,15 +219,10 @@ public class OptLogicas {
             }
             } catch (Exception e) {
                 System.out.println(e.getMessage());
-            }
-            
-            
+            }   
         }
-        
         textos.clear();
         ListaPalabras.getItems().clear();
-        cargarDatos(lista, ListaPalabras, textoIngresado,textos,IndexPalabra);
-        
-         
+        cargarDatos(lista, ListaPalabras, textoIngresado,textos,IndexPalabra);   
     }
 }
