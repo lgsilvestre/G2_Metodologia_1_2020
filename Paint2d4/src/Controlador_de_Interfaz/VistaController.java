@@ -163,7 +163,9 @@ public class VistaController implements Initializable {
      */
     @FXML
     public void menuDarFormato(ActionEvent event){
-        
+        if (puntocontrol) {
+            visualizarPuntos(event);
+        }
         if (darformato==false) {
             botonDarFormato.setStyle("-fx-background-color: #08b2c9;");
             menudarformato.setVisible(true);
@@ -226,8 +228,10 @@ public class VistaController implements Initializable {
     public void trasladarTexto(MouseEvent event){
         if (mover) {
             textoIngresado.setLayoutX(event.getX());
-            textoIngresado.setLayoutY(event.getY());    
-        }     
+            textoIngresado.setLayoutY(event.getY()); 
+            
+        }
+        
     }
     
     // copia de lo ingresado en el textFlow por seguridad y asi no perderla durante la ejecucion
@@ -281,7 +285,7 @@ public class VistaController implements Initializable {
     private void desactivarTrasladar(MouseEvent event) {
         mover=false;
         trasladar.setStyle("-fx-background-color: rgb(0,68,114);");
-       
+        
 //         System.out.println(textoIngresado.getLayoutX()+" "+textoIngresado.getLayoutY());
         
     }
