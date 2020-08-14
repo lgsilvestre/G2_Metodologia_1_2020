@@ -246,8 +246,9 @@ public class VistaController implements Initializable {
         X= textoIngresado.getLayoutX();
         Y= textoIngresado.getLayoutY();
         rota= textoIngresado.getRotate();
-        visualPunto.setStyle("-fx-background-color: #08b2c9;");
+        
         if (puntocontrol==false) {
+            visualPunto.setStyle("-fx-background-color: #08b2c9;");
             operaciones.separarTexto(texto.getText(),textoIngresado,textos,canvasPane);
             textoIngresado.setMaxSize(950, 200);
             textoIngresado.setLayoutX(X);
@@ -267,7 +268,7 @@ public class VistaController implements Initializable {
                     textoIngresado.getChildren().remove(aux2);
                 }
             }
-            
+            ListaPalabras.getItems().clear();
             lista.clear();
             textos.clear();
             operaciones.cargarDatos(lista, ListaPalabras, textoIngresado,textos,IndexPalabra);
@@ -299,7 +300,13 @@ public class VistaController implements Initializable {
     TextFlow auxiliar;
 
     @FXML
-    private void leertexto(KeyEvent event) {     
+    private void leertexto(KeyEvent event) {
+        
+        
+        if (puntocontrol) {
+            visualPunto.setStyle("-fx-background-color: rgb(0,68,114);");
+             puntocontrol=false;
+        }
         operaciones.Leertexto(textoIngresado, texto, textos, ListaPalabras, lista, IndexPalabra);
     }
     
@@ -622,20 +629,23 @@ public class VistaController implements Initializable {
                 disminuir.setVisible(true);
                 tamanio.setVisible(true);
                 Text aux = (Text) textoIngresado.getChildren().get(IndexPalabra);
-                if (!aux.getFont().getFamily().equals("Segoe Script")) {
-                    Font fuente = Font.font(aux.getFont().getFamily(),aux.getFont().getSize()+2);
-                    tamanio.setText(""+aux.getFont().getSize());
-                    aux.setFont(fuente);
-                }else{
-                    if (aux.getFont().getStyle().equals("Bold")) {
-                        Font fuente = Font.font(aux.getFont().getFamily(),FontWeight.BOLD,aux.getFont().getSize()+2);
+                if (aux.getFont().getSize()+2<=98) {
+                    if (!aux.getFont().getFamily().equals("Segoe Script")) {
+                        Font fuente = Font.font(aux.getFont().getFamily(),aux.getFont().getSize()+2);
                         tamanio.setText(""+aux.getFont().getSize());
                         aux.setFont(fuente);
                     }else{
-                         Font fuente = Font.font(aux.getFont().getFamily(),aux.getFont().getSize()+2);
-                        tamanio.setText(""+aux.getFont().getSize());
-                        aux.setFont(fuente);
+                        if (aux.getFont().getStyle().equals("Bold")) {
+                            Font fuente = Font.font(aux.getFont().getFamily(),FontWeight.BOLD,aux.getFont().getSize()+2);
+                            tamanio.setText(""+aux.getFont().getSize());
+                            aux.setFont(fuente);
+                        }else{
+                            Font fuente = Font.font(aux.getFont().getFamily(),aux.getFont().getSize()+2);
+                           tamanio.setText(""+aux.getFont().getSize());
+                           aux.setFont(fuente);
+                        }
                     }
+                    
                 }
             }
         }        
@@ -659,21 +669,23 @@ public class VistaController implements Initializable {
                 disminuir.setVisible(true);
                 tamanio.setVisible(true);
                 Text aux = (Text) textoIngresado.getChildren().get(IndexPalabra);
-                if (!aux.getFont().getFamily().equals("Segoe Script")) {
-                    Font fuente = Font.font(aux.getFont().getFamily(),aux.getFont().getSize()-2);
-                    tamanio.setText(""+aux.getFont().getSize());
-                    aux.setFont(fuente);
-                }else{
-                    if (aux.getFont().getStyle().equals("Bold")) {
-                        Font fuente = Font.font(aux.getFont().getFamily(),FontWeight.BOLD,aux.getFont().getSize()-2);
+                if (aux.getFont().getSize()-2>=14) {
+                    if (!aux.getFont().getFamily().equals("Segoe Script")) {
+                        Font fuente = Font.font(aux.getFont().getFamily(),aux.getFont().getSize()-2);
                         tamanio.setText(""+aux.getFont().getSize());
                         aux.setFont(fuente);
                     }else{
-                         Font fuente = Font.font(aux.getFont().getFamily(),aux.getFont().getSize()-2);
-                        tamanio.setText(""+aux.getFont().getSize());
-                        aux.setFont(fuente);
-                    }
-                } 
+                        if (aux.getFont().getStyle().equals("Bold")) {
+                            Font fuente = Font.font(aux.getFont().getFamily(),FontWeight.BOLD,aux.getFont().getSize()-2);
+                            tamanio.setText(""+aux.getFont().getSize());
+                            aux.setFont(fuente);
+                        }else{
+                             Font fuente = Font.font(aux.getFont().getFamily(),aux.getFont().getSize()-2);
+                            tamanio.setText(""+aux.getFont().getSize());
+                            aux.setFont(fuente);
+                        }
+                    } 
+                }
             }
         }
     }

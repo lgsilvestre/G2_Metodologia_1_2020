@@ -168,9 +168,26 @@ public class OptLogicas {
         textoIngresado.setLayoutX(40);
         textoIngresado.setLayoutY(40);
         textoIngresado.getChildren().clear();
-        
+        String palabra="";
+        String [] aux3 = texto.getText().split("");
+        for (int i = 0; i < aux3.length; i++) {
+            try{
+                char caracter= aux3[i].charAt(0);
+                if ( (caracter>='a' && caracter<='z') || (caracter>='A' && caracter<='Z') || caracter==' ' ) {
+                   palabra= palabra+caracter;
+                }if (caracter>=48 && caracter<=57) {
+                    palabra= palabra+caracter;
+                }
+                if (caracter==34 || caracter==39 || caracter==46 || caracter==60 || caracter==62) {
+                    palabra= palabra+caracter;
+                }
+            }catch(Exception e){
+                
+            }    
+        }
+        texto.setText(palabra);
         String [] aux = texto.getText().split(" ");
-        
+        texto.selectRange(texto.getText().length(),texto.getText().length());
         for (int i = 0; i < aux.length; i++) {
             if (aux[i]!=" ") {
                 Text texto1 = new Text(aux[i]);
