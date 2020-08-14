@@ -173,7 +173,7 @@ public class OptLogicas {
         for (int i = 0; i < aux3.length; i++) {
             try{
                 char caracter= aux3[i].charAt(0);
-                if ( (caracter>='a' && caracter<='z') || (caracter>='A' && caracter<='Z') || caracter==' ' ) {
+                if ( (caracter>='a' && caracter<='z') || (caracter>='A' && caracter<='Z') || caracter==' '  ||(caracter=='ñ' || caracter=='Ñ')) {
                    palabra= palabra+caracter;
                 }if (caracter>=48 && caracter<=57) {
                     palabra= palabra+caracter;
