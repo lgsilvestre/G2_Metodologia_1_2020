@@ -61,6 +61,11 @@
                </image>
             </ImageView>
             <Button fx:id="cerrar" layoutX="1254.0" layoutY="2.0" mnemonicParsing="false" onAction="#salir" style="-fx-background-color: red;" text="X" textFill="WHITE" />
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="84.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Imagenes/logo.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
       <Pane layoutY="153.0" prefHeight="239.0" prefWidth="249.0" style="-fx-background-color: rgb(1,110,179);">

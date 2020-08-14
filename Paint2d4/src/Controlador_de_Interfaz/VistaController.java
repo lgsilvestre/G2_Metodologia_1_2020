@@ -275,26 +275,26 @@ public class VistaController implements Initializable {
         }    
     }
        
-//    // borrar
-//    @FXML
-//    private void desactivarTrasladar(MouseEvent event) {
-//        mover=false;
-//        trasladar.setStyle("-fx-background-color: rgb(0,68,114);");
-//       
-////         System.out.println(textoIngresado.getLayoutX()+" "+textoIngresado.getLayoutY());
-//        
-//    }
-//    //
-//    @FXML
-//    private void activarTrasladar(MouseEvent event) 
-//    {
-//        mover=true;
-//        trasladar.setStyle("-fx-background-color: #08b2c9;");
-//        textoIngresado.setOnMousePressed((event2) -> {
-//             mover=false;
-//             trasladar.setStyle("-fx-background-color: rgb(0,68,114);");
-//        });
-//    }
+    // borrar
+    @FXML
+    private void desactivarTrasladar(MouseEvent event) {
+        mover=false;
+        trasladar.setStyle("-fx-background-color: rgb(0,68,114);");
+       
+//         System.out.println(textoIngresado.getLayoutX()+" "+textoIngresado.getLayoutY());
+        
+    }
+    //
+    @FXML
+    private void activarTrasladar(MouseEvent event) 
+    {
+        mover=true;
+        trasladar.setStyle("-fx-background-color: #08b2c9;");
+        textoIngresado.setOnMousePressed((event2) -> {
+             mover=false;
+             trasladar.setStyle("-fx-background-color: rgb(0,68,114);");
+        });
+    }
 
     TextFlow auxiliar;
 
